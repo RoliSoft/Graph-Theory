@@ -1,37 +1,35 @@
-#include "iostream"
-#include "fstream"
-#include "iomanip"
-#include "deque"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <deque>
+#include <boost/range/adaptor/map.hpp>
 #include "graph.h"
 
 Graph::Graph(std::string file)
 {
 	using namespace std;
 
+	cout << "Initializing graph from file..." << endl << endl;
+
 	ifstream fs(file);
 
 	fs >> directed;
 	fs >> weighted;
-	fs >> vertices;
-	fs >> edges;
+	fs >> vertCnt;
+	fs >> edgeCnt;
 
-	cout << " Number of vertices: " << vertices << "; edges: " << edges << "; graph is " << (!directed ? "not " : "") << "directed and " << (!weighted ? "not " : "") << "weighted." << endl << endl;
+	cout << " Number of vertices: " << vertCnt << "; edges: " << edgeCnt << "; graph is " << (!directed ? "not " : "") << "directed and " << (!weighted ? "not " : "") << "weighted." << endl << endl;
 
 	verts  = map<int, Vertex*>();
-	nums   = vector<Edge*>(edges);
-	matrix = Matrix<bool>(vertices + 1, vertices + 1, false);
+	edges  = vector<Edge*>(edgeCnt);
+	matrix = Matrix<bool>(vertCnt + 1, vertCnt + 1, false);
 
 	if (weighted)
 	{
-		watrix = Matrix<int>(vertices + 1, vertices + 1, INT_MAX);
+		weightrix = Matrix<int>(vertCnt + 1, vertCnt + 1, INT_MAX);
 	}
-
-	for (int i = 0; i < vertices; i++)
-	{
-		verts.emplace(i + 1, new Vertex(this, i + 1));
-	}
-
-	for (int i = 0; i < edges; i++)
+	
+	for (int i = 0; i < edgeCnt; i++)
 	{
 		int src, dst, weight = 0;
 
@@ -43,36 +41,56 @@ Graph::Graph(std::string file)
 			fs >> weight;
 		}
 
-		nums[i] = new Edge(verts[src], verts[dst], weight);
+		if (!verts.count(src))
+		{
+			verts.emplace(src, new Vertex(this, src));
+		}
 
-		matrix.set(nums[i]->src->id, nums[i]->dst->id, true);
+		if (!verts.count(dst))
+		{
+			verts.emplace(dst, new Vertex(this, dst));
+		}
+
+		edges[i] = new Edge(verts[src], verts[dst], weight);
+
+		matrix.set(edges[i]->src->id, edges[i]->dst->id, true);
+
+		if (!directed)
+		{
+			matrix.set(edges[i]->dst->id, edges[i]->src->id, true);
+		}
 
 		if (weighted)
 		{
-			watrix.set(nums[i]->src->id, nums[i]->dst->id, weight);
+			weightrix.set(edges[i]->src->id, edges[i]->dst->id, weight);
+
+			if (!directed)
+			{
+				weightrix.set(edges[i]->dst->id, edges[i]->src->id, weight);
+			}
 		}
 
-		cout << "  " << nums[i]->src->id << " " << (!directed ? "<" : "") << "-" << (weighted ? "[" + to_string(nums[i]->weight) + "]" : "") << "-> " << nums[i]->dst->id << endl;
+		cout << "  " << edges[i]->src->id << " " << (!directed ? "<" : "") << "-" << (weighted ? "[" + to_string(edges[i]->weight) + "]" : "") << "-> " << edges[i]->dst->id << endl;
 	}
 
 	cout << endl << " Edge list:" << endl;
 
-	for (int i = 0; i < vertices; i++)
+	for (auto vert : verts | boost::adaptors::map_values)
 	{
-		cout << endl << "  Vertex " << verts[i + 1]->id << ": " << endl;
+		cout << endl << "  Vertex " << vert->id << ": " << endl;
 
 		if (directed)
 		{
-			cout << "   <-  in: " << verts[i + 1]->in.size() << " [ ";
+			cout << "   <-  in: " << vert->in.size() << " [ ";
 
-			for (auto ed : verts[i + 1]->in)
+			for (auto ed : vert->in)
 			{
 				cout << ed->src->id << " ";
 			}
 
-			cout << "]" << endl << "   -> out: " << verts[i + 1]->out.size() << " [ ";
+			cout << "]" << endl << "   -> out: " << vert->out.size() << " [ ";
 
-			for (auto ed : verts[i + 1]->out)
+			for (auto ed : vert->out)
 			{
 				cout << ed->dst->id << " ";
 			}
@@ -81,11 +99,11 @@ Graph::Graph(std::string file)
 		}
 		else
 		{
-			cout << "   degree: " << verts[i + 1]->deg.size() << " [ ";
+			cout << "   degree: " << vert->deg.size() << " [ ";
 
-			for (auto ed : verts[i + 1]->deg)
+			for (auto ed : vert->deg)
 			{
-				cout << (ed->dst == verts[i + 1] ? ed->src->id : ed->dst->id) << " ";
+				cout << (ed->dst == vert ? ed->src->id : ed->dst->id) << " ";
 			}
 
 			cout << "]" << endl;
@@ -98,109 +116,6 @@ Graph::Graph(std::string file)
 	if (weighted)
 	{
 		cout << " Weighted adjacency matrix:" << endl;
-		watrix.print();
+		weightrix.print();
 	}
-}
-
-enum color {
-	white,
-	gray,
-	black
-};
-
-void _dfs(Vertex* vert, std::deque<Vertex*>* gray, std::deque<Vertex*>* black, std::map<int, color>* colors)
-{
-	(*colors)[vert->id] = color::gray;
-	gray->emplace_back(vert);
-
-	for (auto vert2 : vert->out)
-	{
-		if ((*colors)[vert2->dst->id] == color::white)
-		{
-			_dfs(vert2->dst, gray, black, colors);
-		}
-	}
-
-	(*colors)[vert->id] = color::black;
-	black->emplace_back(vert);
-}
-
-void Graph::depthFirstSearch()
-{
-	using namespace std;
-
-	auto gray   = deque<Vertex*>();
-	auto black  = deque<Vertex*>();
-	auto colors = map<int, color>();
-
-	for (int i = 0; i < vertices; i++)
-	{
-		colors[verts[i + 1]->id] = color::white;
-	}
-
-	for (auto vert : verts)
-	{
-		if (colors[vert.first] == color::white)
-		{
-			_dfs(vert.second, &gray, &black, &colors);
-
-			gray.emplace_back(nullptr);
-			black.emplace_back(nullptr);
-		}
-	}
-
-	cout << " Depth-first search:" << endl << "  Gray:  ";
-
-	auto sep = false;
-	for (auto vert : gray)
-	{
-		if (vert == nullptr)
-		{
-			sep = true;
-		}
-		else
-		{
-			if (sep)
-			{
-				cout << "| ";
-				sep = false;
-			}
-
-			cout << vert->id << " ";
-		}
-	}
-
-	cout << endl << "  Black: ";
-
-	sep = false;
-	for (auto vert : black)
-	{
-		if (vert == nullptr)
-		{
-			sep = true;
-		}
-		else
-		{
-			if (sep)
-			{
-				cout << "| ";
-				sep = false;
-			}
-
-			cout << vert->id << " ";
-		}
-	}
-
-	cout << endl << endl;
-}
-
-void Graph::breathFirstSearch()
-{
-	using namespace std;
-
-	cout << "Not yet implemented." << endl;
-}
-
-Graph::~Graph()
-{
 }

@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files\Boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -56,6 +57,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files\Boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,18 +66,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="algo.cpp" />
+    <ClCompile Include="breadthFirstSearch.cpp" />
+    <ClCompile Include="depthFirstSearch.cpp" />
     <ClCompile Include="edge.cpp" />
-    <ClCompile Include="edge_less.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="search.cpp" />
+    <ClCompile Include="topologicalSort.cpp" />
     <ClCompile Include="vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algo.h" />
+    <ClInclude Include="breadthFirstSearch.h" />
+    <ClInclude Include="depthFirstSearch.h" />
     <ClInclude Include="edge.h" />
-    <ClInclude Include="edge_less.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="search.h" />
+    <ClInclude Include="topologicalSort.h" />
     <ClInclude Include="vertex.h" />
   </ItemGroup>
   <ItemGroup>

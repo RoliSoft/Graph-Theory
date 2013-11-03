@@ -1,8 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "vector"
-#include "algorithm"
+#include <vector>
+#include <algorithm>
 
 #ifndef _t
 #define _t template <typename T>

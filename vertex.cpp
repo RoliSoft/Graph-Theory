@@ -1,7 +1,6 @@
 #include "graph.h"
 #include "vertex.h"
 #include "edge.h"
-#include "edge_less.h"
 
 Vertex::Vertex(Graph* graph, int id)
 {
@@ -10,11 +9,11 @@ Vertex::Vertex(Graph* graph, int id)
 
 	if (graph->directed)
 	{
-		this->in  = std::set<Edge*, edge_less>();
-		this->out = std::set<Edge*, edge_less>();
+		this->in  = std::set<Edge*, Edge::less>();
+		this->out = std::set<Edge*, Edge::less>();
 	}
 	else
 	{
-		this->deg = std::set<Edge*, edge_less>();
+		this->deg = std::set<Edge*, Edge::less>();
 	}
 }
