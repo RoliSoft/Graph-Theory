@@ -1,6 +1,7 @@
 #ifndef DEPTH_FIRST_SEARCH_H
 #define DEPTH_FIRST_SEARCH_H
 
+#include <unordered_set>
 #include "graph.h"
 #include "search.h"
 #include "edge.h"
@@ -11,7 +12,10 @@ public:
 	int time, timeRev;
 	bool acyclic;
 	std::map<Vertex*, int> tock;
+	std::map<Vertex*, int> bmin;
 	std::vector<Edge*> backEdges;
+	std::unordered_set<Edge*> artEdges;
+	std::unordered_set<Vertex*> artVerts;
 	std::map<Vertex*, color> colorsRev;
 	std::vector<Vertex*> grayedRev;
 	std::vector<Vertex*> blackedRev;

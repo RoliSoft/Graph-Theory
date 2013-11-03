@@ -8,7 +8,10 @@
 DepthFirstSearch::DepthFirstSearch(Graph* graph) : GraphSearch(graph)
 {
 	tock       = std::map<Vertex*, int>();
+	bmin       = std::map<Vertex*, int>();
 	backEdges  = std::vector<Edge*>();
+	artEdges   = std::unordered_set<Edge*>();
+	artVerts   = std::unordered_set<Vertex*>();
 	colorsRev  = std::map<Vertex*, color>();
 	grayedRev  = std::vector<Vertex*>();
 	blackedRev = std::vector<Vertex*>();
@@ -80,7 +83,7 @@ void DepthFirstSearch::searchRev()
 void DepthFirstSearch::discover(Vertex* vert)
 {
 	colors[vert] = color::gray;
-	tick[vert] = time;
+	tick[vert] = bmin[vert] = time;
 	time++;
 	grayed.emplace_back(vert);
 	parentheses += "(";
@@ -92,19 +95,42 @@ void DepthFirstSearch::discover(Vertex* vert)
 		case color::white:
 			categs[edge] = kind::tree;
 			parents[edge->dst] = vert;
+
 			discover(edge->dst);
+
+			bmin[vert] = std::min(bmin[vert], bmin[edge->dst]);
+
+			if (bmin[edge->dst] > tick[vert])
+			{
+				artEdges.emplace(edge);
+			}
+
+			if ((parents.count(vert) == 0 && vert->out.size() > 1)
+			 || (parents.count(vert) != 0 && bmin[edge->dst] >= tick[vert]))
+			{
+				artVerts.emplace(vert);
+			}
 			break;
 
 		case color::gray:
 			categs[edge] = kind::back;
 			acyclic = false;
+
 			backEdges.push_back(edge);
+
+			if (edge->dst != parents[vert])
+			{
+				bmin[vert] = std::min(bmin[vert], tick[edge->dst]);
+			}
 			break;
 
 		case color::black:
-			/*categs[edge] = std::distance(grayed.begin(), std::find(grayed.begin(), grayed.end(), vert)) < std::distance(grayed.begin(), std::find(grayed.begin(), grayed.end(), edge->dst))
-						 ? kind::forward : kind::cross;*/
 			categs[edge] = tick[vert] < tick[edge->dst] ? kind::forward : kind::cross;
+
+			if (edge->dst != parents[vert])
+			{
+				bmin[vert] = std::min(bmin[vert], tick[edge->dst]);
+			}
 			break;
 		}
 	}
@@ -193,13 +219,29 @@ void DepthFirstSearch::printInfo()
 			cout << endl;
 		}
 	}
+
+	cout << endl << "  Articulation edges:" << endl;
+
+	for (auto edge : artEdges)
+	{
+		cout << "   " << edge->src->id << " " << edge->dst->id << endl;
+	}
+
+	cout << endl << "  Articulation vertices:" << endl << "   ";
+
+	for (auto vert : artVerts)
+	{
+		cout << vert->id << " ";
+	}
+
+	cout << endl;
 }
 
 void DepthFirstSearch::printInfoRev()
 {
 	using namespace std;
 
-	cout << "  Strongly connected components:  ";
+	cout << "  Strongly connected components:  " << endl << "   ";
 
 	auto sep = false;
 	for (auto vert : grayedRev)
@@ -212,7 +254,7 @@ void DepthFirstSearch::printInfoRev()
 		{
 			if (sep)
 			{
-				cout << "| ";
+				cout << endl << "   ";
 				sep = false;
 			}
 
