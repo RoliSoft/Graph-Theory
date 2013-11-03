@@ -12,6 +12,7 @@ int main()
 	BreadthFirstSearch bfs(&graph);
 
 	dfs.search();
+	dfs.searchRev();
 	bfs.search();
 
 	system("pause");

@@ -7,8 +7,14 @@
 
 DepthFirstSearch::DepthFirstSearch(Graph* graph) : GraphSearch(graph)
 {
-	tock = std::map<Vertex*, int>();
-	backEdges = std::vector<Edge*>();
+	tock       = std::map<Vertex*, int>();
+	backEdges  = std::vector<Edge*>();
+	colorsRev  = std::map<Vertex*, color>();
+	grayedRev  = std::vector<Vertex*>();
+	blackedRev = std::vector<Vertex*>();
+	categsRev  = std::map<Edge*, kind>();
+	tickRev    = std::map<Vertex*, int>();
+	tockRev    = std::map<Vertex*, int>();
 }
 
 void DepthFirstSearch::search()
@@ -39,6 +45,35 @@ void DepthFirstSearch::search()
 
 	cout << " Depth-first search:" << endl;
 	printInfo();
+	cout << endl;
+}
+
+void DepthFirstSearch::searchRev()
+{
+	using namespace std;
+
+	for (auto vert : graph->verts | boost::adaptors::map_values)
+	{
+		colorsRev[vert] = color::white;
+		tickRev[vert]   = 0;
+		tockRev[vert]   = 0;
+	}
+
+	timeRev = 0;
+
+	for (auto vert : blacked | boost::adaptors::reversed)
+	{
+		if (colorsRev[vert] == color::white)
+		{
+			discoverRev(vert);
+
+			grayedRev.emplace_back(nullptr);
+			blackedRev.emplace_back(nullptr);
+		}
+	}
+
+	cout << " Reverse depth-first search:" << endl;
+	printInfoRev();
 	cout << endl;
 }
 
@@ -89,11 +124,11 @@ void DepthFirstSearch::discoverRev(Vertex* vert)
 
 	for (auto edge : vert->in)
 	{
-		switch (colors[edge->src])
+		switch (colorsRev[edge->src])
 		{
 		case color::white:
 			categsRev[edge] = kind::tree;
-			discover(edge->src);
+			discoverRev(edge->src);
 			break;
 
 		case color::gray:
@@ -142,11 +177,11 @@ void DepthFirstSearch::printInfo()
 	}
 	else
 	{
-		cout << endl << "  Cycles:" << endl << "   ";
+		cout << endl << "  Cycles:" << endl;
 
 		for (auto edge : backEdges)
 		{
-			cout << edge->src->id << " ";
+			cout << "   " << edge->src->id << " ";
 
 			Vertex* parent = edge->src;
 			while (parents.count(parent) > 0 && parent != edge->dst)
@@ -158,4 +193,32 @@ void DepthFirstSearch::printInfo()
 			cout << endl;
 		}
 	}
+}
+
+void DepthFirstSearch::printInfoRev()
+{
+	using namespace std;
+
+	cout << "  Strongly connected components:  ";
+
+	auto sep = false;
+	for (auto vert : grayedRev)
+	{
+		if (vert == nullptr)
+		{
+			sep = true;
+		}
+		else
+		{
+			if (sep)
+			{
+				cout << "| ";
+				sep = false;
+			}
+
+			cout << vert->id << " ";
+		}
+	}
+
+	cout << endl;
 }
