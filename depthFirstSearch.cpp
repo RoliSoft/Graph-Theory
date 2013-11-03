@@ -8,6 +8,7 @@
 DepthFirstSearch::DepthFirstSearch(Graph* graph) : GraphSearch(graph)
 {
 	tock = std::map<Vertex*, int>();
+	backEdges = std::vector<Edge*>();
 }
 
 void DepthFirstSearch::search()
@@ -62,6 +63,7 @@ void DepthFirstSearch::discover(Vertex* vert)
 		case color::gray:
 			categs[edge] = kind::back;
 			acyclic = false;
+			backEdges.push_back(edge);
 			break;
 
 		case color::black:
@@ -76,6 +78,37 @@ void DepthFirstSearch::discover(Vertex* vert)
 	tock[vert] = time;
 	blacked.emplace_back(vert);
 	parentheses += ")";
+}
+
+void DepthFirstSearch::discoverRev(Vertex* vert)
+{
+	colorsRev[vert] = color::gray;
+	tickRev[vert] = timeRev;
+	timeRev++;
+	grayedRev.emplace_back(vert);
+
+	for (auto edge : vert->in)
+	{
+		switch (colors[edge->src])
+		{
+		case color::white:
+			categsRev[edge] = kind::tree;
+			discover(edge->src);
+			break;
+
+		case color::gray:
+			categsRev[edge] = kind::back;
+			break;
+
+		case color::black:
+			categsRev[edge] = tickRev[vert] < tickRev[edge->src] ? kind::forward : kind::cross;
+			break;
+		}
+	}
+
+	colorsRev[vert] = color::black;
+	tockRev[vert] = timeRev;
+	blackedRev.emplace_back(vert);
 }
 
 void DepthFirstSearch::printInfo()
@@ -106,5 +139,23 @@ void DepthFirstSearch::printInfo()
 		}
 
 		cout << endl;
+	}
+	else
+	{
+		cout << endl << "  Cycles:" << endl << "   ";
+
+		for (auto edge : backEdges)
+		{
+			cout << edge->src->id << " ";
+
+			Vertex* parent = edge->src;
+			while (parents.count(parent) > 0 && parent != edge->dst)
+			{
+				parent = parents[parent];
+				cout << parent->id << " ";
+			}
+
+			cout << endl;
+		}
 	}
 }

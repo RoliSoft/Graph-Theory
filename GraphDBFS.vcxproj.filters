@@ -48,9 +48,6 @@
     <ClCompile Include="algo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="topologicalSort.cpp">
-      <Filter>Source Files\algo</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -73,9 +70,6 @@
     </ClInclude>
     <ClInclude Include="search.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="topologicalSort.h">
-      <Filter>Header Files\algo</Filter>
     </ClInclude>
     <ClInclude Include="algo.h">
       <Filter>Header Files</Filter>

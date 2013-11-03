@@ -75,3 +75,28 @@ void BreadthFirstSearch::search()
 	printInfo();
 	cout << endl;
 }
+
+void BreadthFirstSearch::printInfo()
+{
+	GraphSearch::printInfo();
+
+	using namespace std;
+
+	cout << endl << "  Shortest paths:" << endl;
+
+	for (auto vert : graph->verts | boost::adaptors::map_values)
+	{
+		cout << "   " << vert->id;
+
+		Vertex* parent = vert;
+		while (parents.count(parent) > 0)
+		{
+			parent = parents[parent];
+			cout << " -> " << parent->id;
+		}
+
+		cout << endl;
+	}
+
+	cout << endl;
+}

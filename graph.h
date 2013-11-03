@@ -5,6 +5,7 @@
 #include <vector>
 #include <deque>
 #include <string>
+#include <tuple>
 #include "vertex.h"
 #include "edge.h"
 #include "matrix.h"
@@ -22,6 +23,10 @@ public:
 	Matrix<int> weightrix; // súlyozott szomszédsági mátrix [SulyM]
 
 	Graph(std::string file);
+	Graph(bool directed, bool weighted, int vertCnt, int edgeCnt, std::vector<std::tuple<int, int, int>> edgeList);
+
+	Graph* clone();
+	Graph* transpose();
 };
 
 #endif

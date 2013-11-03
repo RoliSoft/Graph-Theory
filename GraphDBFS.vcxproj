@@ -74,7 +74,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="search.cpp" />
-    <ClCompile Include="topologicalSort.cpp" />
     <ClCompile Include="vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +84,6 @@
     <ClInclude Include="graph.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="search.h" />
-    <ClInclude Include="topologicalSort.h" />
     <ClInclude Include="vertex.h" />
   </ItemGroup>
   <ItemGroup>

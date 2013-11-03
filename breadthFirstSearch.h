@@ -10,6 +10,9 @@ public:
 	BreadthFirstSearch(Graph* graph);
 
 	void search();
+
+protected:
+	void printInfo();
 };
 
 #endif
