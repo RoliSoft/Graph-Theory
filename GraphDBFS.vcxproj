@@ -72,6 +72,7 @@
     <ClCompile Include="depthFirstSearchRev.cpp" />
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="graph.cpp" />
+    <ClCompile Include="kruskalMinSpanTree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="primMinSpanTree.cpp" />
     <ClCompile Include="search.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="depthFirstSearchRev.h" />
     <ClInclude Include="edge.h" />
     <ClInclude Include="graph.h" />
+    <ClInclude Include="kruskalMinSpanTree.h" />
     <ClInclude Include="primMinSpanTree.h" />
     <ClInclude Include="search.h" />
     <ClInclude Include="vertex.h" />
