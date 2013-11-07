@@ -29,6 +29,7 @@ void DepthFirstSearch::search()
 		colors[vert] = color::white;
 		tick[vert]   = 0;
 		tock[vert]   = 0;
+		bmin[vert]   = 0;
 	}
 
 	time = 0;
@@ -43,6 +44,23 @@ void DepthFirstSearch::search()
 
 			grayed.emplace_back(nullptr);
 			blacked.emplace_back(nullptr);
+		}
+	}
+
+	for (auto vert : graph->verts | boost::adaptors::map_values)
+	{
+		for (auto edge : vert->out)
+		{
+			if (bmin[edge->dst] > tick[vert])
+			{
+				artEdges.emplace(edge);
+			}
+
+			if ((parents.count(vert) == 0 && vert->out.size() > 1)
+			 || (parents.count(vert) != 0 && bmin[edge->dst] >= tick[vert]))
+			{
+				artVerts.emplace(vert);
+			}
 		}
 	}
 
@@ -99,17 +117,6 @@ void DepthFirstSearch::discover(Vertex* vert)
 			discover(edge->dst);
 
 			bmin[vert] = std::min(bmin[vert], bmin[edge->dst]);
-
-			if (bmin[edge->dst] > tick[vert])
-			{
-				artEdges.emplace(edge);
-			}
-
-			if ((parents.count(vert) == 0 && vert->out.size() > 1)
-			 || (parents.count(vert) != 0 && bmin[edge->dst] >= tick[vert]))
-			{
-				artVerts.emplace(vert);
-			}
 			break;
 
 		case color::gray:
