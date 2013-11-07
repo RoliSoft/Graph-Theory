@@ -1,6 +1,7 @@
 #include <iostream>
 #include "graph.h"
 #include "depthFirstSearch.h"
+#include "depthFirstSearchRev.h"
 #include "breadthFirstSearch.h"
 
 int main()
@@ -9,11 +10,12 @@ int main()
 
 	Graph graph("input.txt");
 	DepthFirstSearch dfs(&graph);
-	BreadthFirstSearch bfs(&graph);
+	DepthFirstSearchRev dfr(&graph, &dfs);
+	//BreadthFirstSearch bfs(&graph);
 
 	dfs.search();
-	dfs.searchRev();
-	bfs.search();
+	dfr.search();
+	//bfs.search();
 
 	system("pause");
 	return EXIT_SUCCESS;

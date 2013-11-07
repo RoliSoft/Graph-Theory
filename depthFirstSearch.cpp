@@ -5,19 +5,14 @@
 #include <boost/range/adaptor/filtered.hpp>
 #include "depthFirstSearch.h"
 
-DepthFirstSearch::DepthFirstSearch(Graph* graph) : GraphSearch(graph)
+DepthFirstSearch::DepthFirstSearch(Graph* graph)
+	: GraphSearch(graph),
+	  tock(std::map<Vertex*, int>()),
+	  bmin(std::map<Vertex*, int>()),
+	  backEdges(std::vector<Edge*>()),
+	  artEdges(std::unordered_set<Edge*>()),
+	  artVerts(std::unordered_set<Vertex*>())
 {
-	tock       = std::map<Vertex*, int>();
-	bmin       = std::map<Vertex*, int>();
-	backEdges  = std::vector<Edge*>();
-	artEdges   = std::unordered_set<Edge*>();
-	artVerts   = std::unordered_set<Vertex*>();
-	colorsRev  = std::map<Vertex*, color>();
-	grayedRev  = std::vector<Vertex*>();
-	blackedRev = std::vector<Vertex*>();
-	categsRev  = std::map<Edge*, kind>();
-	tickRev    = std::map<Vertex*, int>();
-	tockRev    = std::map<Vertex*, int>();
 }
 
 void DepthFirstSearch::search()
@@ -69,35 +64,6 @@ void DepthFirstSearch::search()
 	cout << endl;
 }
 
-void DepthFirstSearch::searchRev()
-{
-	using namespace std;
-
-	for (auto vert : graph->verts | boost::adaptors::map_values)
-	{
-		colorsRev[vert] = color::white;
-		tickRev[vert]   = 0;
-		tockRev[vert]   = 0;
-	}
-
-	timeRev = 0;
-
-	for (auto vert : blacked | boost::adaptors::reversed)
-	{
-		if (colorsRev[vert] == color::white)
-		{
-			discoverRev(vert);
-
-			grayedRev.emplace_back(nullptr);
-			blackedRev.emplace_back(nullptr);
-		}
-	}
-
-	cout << " Reverse depth-first search:" << endl;
-	printInfoRev();
-	cout << endl;
-}
-
 void DepthFirstSearch::discover(Vertex* vert)
 {
 	colors[vert] = color::gray;
@@ -146,37 +112,6 @@ void DepthFirstSearch::discover(Vertex* vert)
 	tock[vert] = time;
 	blacked.emplace_back(vert);
 	parentheses += ")";
-}
-
-void DepthFirstSearch::discoverRev(Vertex* vert)
-{
-	colorsRev[vert] = color::gray;
-	tickRev[vert] = timeRev;
-	timeRev++;
-	grayedRev.emplace_back(vert);
-
-	for (auto edge : vert->in)
-	{
-		switch (colorsRev[edge->src])
-		{
-		case color::white:
-			categsRev[edge] = kind::tree;
-			discoverRev(edge->src);
-			break;
-
-		case color::gray:
-			categsRev[edge] = kind::back;
-			break;
-
-		case color::black:
-			categsRev[edge] = tickRev[vert] < tickRev[edge->src] ? kind::forward : kind::cross;
-			break;
-		}
-	}
-
-	colorsRev[vert] = color::black;
-	tockRev[vert] = timeRev;
-	blackedRev.emplace_back(vert);
 }
 
 void DepthFirstSearch::printInfo()
@@ -239,34 +174,6 @@ void DepthFirstSearch::printInfo()
 	for (auto vert : artVerts)
 	{
 		cout << vert->id << " ";
-	}
-
-	cout << endl;
-}
-
-void DepthFirstSearch::printInfoRev()
-{
-	using namespace std;
-
-	cout << "  Strongly connected components:  " << endl << "   ";
-
-	auto sep = false;
-	for (auto vert : grayedRev)
-	{
-		if (vert == nullptr)
-		{
-			sep = true;
-		}
-		else
-		{
-			if (sep)
-			{
-				cout << endl << "   ";
-				sep = false;
-			}
-
-			cout << vert->id << " ";
-		}
 	}
 
 	cout << endl;

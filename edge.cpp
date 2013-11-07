@@ -3,11 +3,10 @@
 #include "vertex.h"
 
 Edge::Edge(Vertex* src, Vertex* dst, int weight)
+	: src(src),
+	  dst(dst),
+	  weight(weight)
 {
-	this->src = src;
-	this->dst = dst;
-	this->weight = weight;
-
 	if (src->graph->directed)
 	{
 		this->src->out.emplace(this);

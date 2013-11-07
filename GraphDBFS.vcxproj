@@ -69,6 +69,7 @@
     <ClCompile Include="algo.cpp" />
     <ClCompile Include="breadthFirstSearch.cpp" />
     <ClCompile Include="depthFirstSearch.cpp" />
+    <ClCompile Include="depthFirstSearchRev.cpp" />
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="algo.h" />
     <ClInclude Include="breadthFirstSearch.h" />
     <ClInclude Include="depthFirstSearch.h" />
+    <ClInclude Include="depthFirstSearchRev.h" />
     <ClInclude Include="edge.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="matrix.h" />

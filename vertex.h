@@ -4,15 +4,17 @@
 #include <set>
 #include "edge.h"
 
+class Graph;
+
 class Vertex
 {
 public:
-	class Graph* graph;
+	Graph* graph;
 	int id;
 	bool dir;
 	std::set<Edge*, Edge::less> in, out, deg;
 
-	Vertex(class Graph* graph, int id);
+	Vertex(Graph* graph, int id);
 };
 
 #endif

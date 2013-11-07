@@ -48,6 +48,9 @@
     <ClCompile Include="algo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="depthFirstSearchRev.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="algo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="depthFirstSearchRev.h">
+      <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

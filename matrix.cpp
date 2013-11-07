@@ -9,12 +9,11 @@ _t Matrix<T>::Matrix()
 }
 
 _t Matrix<T>::Matrix(int n, int m, T def)
+	: N(n),
+	  M(m),
+	  def(def),
+	  data(std::vector<T>(n * m))
 {
-	this->N = n;
-	this->M = m;
-	this->def = def;
-
-	data = std::vector<T>(n * m);
 	std::fill(data.begin(), data.end(), def);
 }
 

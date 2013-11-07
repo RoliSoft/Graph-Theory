@@ -1,14 +1,15 @@
 #include <iostream>
 #include "search.h"
 
-GraphSearch::GraphSearch(Graph* graph) : GraphAlgo(graph)
+GraphSearch::GraphSearch(Graph* graph)
+	: GraphAlgo(graph),
+	  colors(std::map<Vertex*, color>()),
+	  grayed(std::vector<Vertex*>()),
+	  blacked(std::vector<Vertex*>()),
+	  categs(std::map<Edge*, kind>()),
+	  parents(std::map<Vertex*, Vertex*>()),
+	  tick(std::map<Vertex*, int>())
 {
-	colors  = std::map<Vertex*, color>();
-	grayed  = std::vector<Vertex*>();
-	blacked = std::vector<Vertex*>();
-	categs  = std::map<Edge*, kind>();
-	parents = std::map<Vertex*, Vertex*>();
-	tick    = std::map<Vertex*, int>();
 }
 
 void GraphSearch::printInfo()

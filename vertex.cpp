@@ -3,10 +3,9 @@
 #include "edge.h"
 
 Vertex::Vertex(Graph* graph, int id)
+	: graph(graph),
+	  id(id)
 {
-	this->graph = graph;
-	this->id = id;
-
 	if (graph->directed)
 	{
 		this->in  = std::set<Edge*, Edge::less>();
