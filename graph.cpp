@@ -93,12 +93,12 @@ Graph::Graph(std::string file)
 	init(directed, weighted.get_value_or(false), vr.size(), el);
 }
 
-Graph::Graph(bool directed, bool weighted, int vertCnt, std::vector<std::tuple<int, int, int>> edgeList)
+Graph::Graph(bool directed, bool weighted, int vertCnt, const std::vector<std::tuple<int, int, int>>& edgeList)
 {
 	init(directed, weighted, vertCnt, edgeList);
 }
 
-void Graph::init(bool directed, bool weighted, int vertCnt, std::vector<std::tuple<int, int, int>> edgeList)
+void Graph::init(bool directed, bool weighted, int vertCnt, const std::vector<std::tuple<int, int, int>>& edgeList)
 {
 	using namespace std;
 
@@ -278,7 +278,7 @@ Graph* Graph::getTransposed()
 	return new Graph(directed, weighted, verts.size(), el);
 }
 
-template <typename T> void Graph::print(boost::numeric::ublas::matrix<T> matrix, T def)
+template <typename T> void Graph::print(const boost::numeric::ublas::matrix<T>& matrix, T def)
 {
 	using namespace std;
 

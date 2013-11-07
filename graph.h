@@ -22,7 +22,7 @@ public:
 	boost::numeric::ublas::matrix<int> weightrix; // súlyozott szomszédsági mátrix [SulyM]
 
 	Graph(std::string file);
-	Graph(bool directed, bool weighted, int vertCnt, std::vector<std::tuple<int, int, int>> edgeList);
+	Graph(bool directed, bool weighted, int vertCnt, const std::vector<std::tuple<int, int, int>>& edgeList);
 
 	bool addEdge(Edge* edge);
 	bool removeEdge(Edge* edge);
@@ -31,8 +31,8 @@ public:
 	Graph* getTransposed();
 
 private:
-	void init(bool directed, bool weighted, int vertCnt, std::vector<std::tuple<int, int, int>> edgeList);
-	template <typename T> void print(boost::numeric::ublas::matrix<T> matrix, T def);
+	void init(bool directed, bool weighted, int vertCnt, const std::vector<std::tuple<int, int, int>>& edgeList);
+	template <typename T> void print(const boost::numeric::ublas::matrix<T>& matrix, T def);
 };
 
 #endif
