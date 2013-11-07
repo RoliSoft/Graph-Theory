@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#include <limits>
 #include <deque>
 #include <vector>
 #include <tuple>
@@ -110,11 +111,11 @@ void Graph::init(bool directed, bool weighted, int vertCnt, std::vector<std::tup
 
 	verts  = map<int, Vertex*>();
 	edges  = set<Edge*, Edge::less>();
-	matrix = Matrix<bool>(vertCnt + 1, vertCnt + 1, false);
+	matrix = boost::numeric::ublas::matrix<bool>(vertCnt + 1, vertCnt + 1, false);
 
 	if (weighted)
 	{
-		weightrix = Matrix<int>(vertCnt + 1, vertCnt + 1, INT_MAX);
+		weightrix = boost::numeric::ublas::matrix<int>(vertCnt + 1, vertCnt + 1, INT_MAX);
 	}
 
 	for (int i = 0; i < (int)edgeList.size(); i++)
@@ -180,12 +181,12 @@ void Graph::init(bool directed, bool weighted, int vertCnt, std::vector<std::tup
 	}
 
 	cout << endl << " Adjacency matrix:" << endl;
-	matrix.print();
+	print(matrix, false);
 
 	if (weighted)
 	{
 		cout << " Weighted adjacency matrix:" << endl;
-		weightrix.print();
+		print(weightrix, INT_MAX);
 	}
 }
 
@@ -196,20 +197,25 @@ bool Graph::addEdge(Edge* edge)
 		return false;
 	}
 
-	matrix.set(edge->src->id, edge->dst->id, true);
+	edge->src->out.emplace(edge);
+	edge->dst->in.emplace(edge);
+	edge->src->deg.emplace(edge);
+	edge->dst->deg.emplace(edge);
+
+	matrix.insert_element(edge->src->id, edge->dst->id, true);
 
 	if (!directed)
 	{
-		matrix.set(edge->dst->id, edge->src->id, true);
+		matrix.insert_element(edge->dst->id, edge->src->id, true);
 	}
 
 	if (weighted)
 	{
-		weightrix.set(edge->src->id, edge->dst->id, edge->weight);
+		weightrix.insert_element(edge->src->id, edge->dst->id, edge->weight);
 
 		if (!directed)
 		{
-			weightrix.set(edge->dst->id, edge->src->id, edge->weight);
+			weightrix.insert_element(edge->dst->id, edge->src->id, edge->weight);
 		}
 	}
 
@@ -223,24 +229,27 @@ bool Graph::removeEdge(Edge* edge)
 		return false;
 	}
 
-	matrix.set(edge->src->id, edge->dst->id, false);
+	edge->src->out.erase(edge);
+	edge->dst->in.erase(edge);
+	edge->src->deg.erase(edge);
+	edge->dst->deg.erase(edge);
+
+	matrix.insert_element(edge->src->id, edge->dst->id, false);
 
 	if (!directed)
 	{
-		matrix.set(edge->dst->id, edge->src->id, false);
+		matrix.insert_element(edge->dst->id, edge->src->id, false);
 	}
 
 	if (weighted)
 	{
-		weightrix.set(edge->src->id, edge->dst->id, INT_MAX);
+		weightrix.insert_element(edge->src->id, edge->dst->id, INT_MAX);
 
 		if (!directed)
 		{
-			weightrix.set(edge->dst->id, edge->src->id, INT_MAX);
+			weightrix.insert_element(edge->dst->id, edge->src->id, INT_MAX);
 		}
 	}
-
-	delete edge;
 
 	return true;
 }
@@ -267,4 +276,53 @@ Graph* Graph::getTransposed()
 	}
 
 	return new Graph(directed, weighted, verts.size(), el);
+}
+
+template <typename T> void Graph::print(boost::numeric::ublas::matrix<T> matrix, T def)
+{
+	using namespace std;
+
+	cout << endl;
+
+	for (int i = 0; i < (int)matrix.size1(); i++)
+	{
+		if (i == 0)
+		{
+			cout << "  " << left << setw(4) << (def == numeric_limits<T>::max() ? "inf" : " " + to_string(def)) << right;
+
+			for (int j = 0; j < (int)matrix.size2(); j++)
+			{
+				cout << setw(3) << (j + 1) << " ";
+			}
+
+			cout << endl << "     +";
+
+			for (int j = 0; j < (int)matrix.size2(); j++)
+			{
+				cout << " -- ";
+			}
+
+			cout << endl;
+		}
+
+		cout << "  " << setw(2) << (i + 1) << " |";
+
+		for (int j = 0; j < (int)matrix.size2(); j++)
+		{
+			auto val = matrix.at_element(i, j);
+
+			if (val == def)
+			{
+				cout << "  - ";
+			}
+			else
+			{
+				cout << setw(3) << val << " ";
+			}
+		}
+
+		cout << endl;
+	}
+
+	cout << endl;
 }

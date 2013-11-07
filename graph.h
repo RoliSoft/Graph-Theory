@@ -7,9 +7,9 @@
 #include <string>
 #include <tuple>
 #include <set>
+#include <boost/numeric/ublas/matrix.hpp>
 #include "vertex.h"
 #include "edge.h"
-#include "matrix.h"
 
 class Graph
 {
@@ -18,8 +18,8 @@ public:
 	bool weighted; // súlyozottság
 	std::map<int, Vertex*> verts; // csúcslista [Ki_SzL, Be_SzL, KiBe_SzL]
 	std::set<Edge*, Edge::less> edges; // éllista [ElL]
-	Matrix<bool> matrix; // szomszédsági mátrix [SzM]
-	Matrix<int> weightrix; // súlyozott szomszédsági mátrix [SulyM]
+	boost::numeric::ublas::matrix<bool> matrix; // szomszédsági mátrix [SzM]
+	boost::numeric::ublas::matrix<int> weightrix; // súlyozott szomszédsági mátrix [SulyM]
 
 	Graph(std::string file);
 	Graph(bool directed, bool weighted, int vertCnt, std::vector<std::tuple<int, int, int>> edgeList);
@@ -32,6 +32,7 @@ public:
 
 private:
 	void init(bool directed, bool weighted, int vertCnt, std::vector<std::tuple<int, int, int>> edgeList);
+	template <typename T> void print(boost::numeric::ublas::matrix<T> matrix, T def);
 };
 
 #endif

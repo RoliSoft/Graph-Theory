@@ -7,18 +7,6 @@ Edge::Edge(Vertex* src, Vertex* dst, int weight)
 	  dst(dst),
 	  weight(weight)
 {
-	this->src->out.emplace(this);
-	this->dst->in.emplace(this);
-	this->src->deg.emplace(this);
-	this->dst->deg.emplace(this);
-}
-
-Edge::~Edge()
-{
-	this->src->out.erase(this);
-	this->dst->in.erase(this);
-	this->src->deg.erase(this);
-	this->dst->deg.erase(this);
 }
 
 std::size_t Edge::hash::operator()(const Edge* e) const

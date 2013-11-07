@@ -73,7 +73,6 @@
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="matrix.cpp" />
     <ClCompile Include="search.cpp" />
     <ClCompile Include="vertex.cpp" />
   </ItemGroup>
@@ -84,7 +83,6 @@
     <ClInclude Include="depthFirstSearchRev.h" />
     <ClInclude Include="edge.h" />
     <ClInclude Include="graph.h" />
-    <ClInclude Include="matrix.h" />
     <ClInclude Include="search.h" />
     <ClInclude Include="vertex.h" />
   </ItemGroup>
