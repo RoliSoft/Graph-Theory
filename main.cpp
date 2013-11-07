@@ -10,12 +10,12 @@ int main()
 	using namespace std;
 
 	Graph graph("input.txt");
-	DepthFirstSearch dfs(&graph);
+	//DepthFirstSearch dfs(&graph);
 	//DepthFirstSearchRev dfr(&graph, &dfs);
 	//BreadthFirstSearch bfs(&graph);
 	PrimMinSpanTree pms(&graph);
 
-	dfs.search();
+	//dfs.search();
 	//dfr.search();
 	//bfs.search();
 	pms.search();

@@ -15,9 +15,8 @@ void PrimMinSpanTree::search()
 	unordered_set<Vertex*> verts;
 	unordered_set<Edge*> edges;
 	
-	verts.emplace(graph->verts[0]);
+	verts.emplace((*graph->verts.begin()).second);
 
-	int i = 0;
 	while (edges.size() != graph->verts.size() - 1)
 	{
 		bool bdir = false;
@@ -48,6 +47,11 @@ void PrimMinSpanTree::search()
 					bdir = dir;
 				}
 			}
+		}
+
+		if (best == nullptr)
+		{
+			break;
 		}
 
 		verts.emplace(bdir ? best->dst : best->src);

@@ -78,11 +78,13 @@ void BreadthFirstSearch::search()
 
 void BreadthFirstSearch::printInfo()
 {
-	GraphSearch::printInfo();
-
 	using namespace std;
 
-	cout << " Breadth-first search:" << endl << endl << "  Shortest paths:" << endl;
+	cout << " Breadth-first search:" << endl;
+
+	GraphSearch::printInfo();
+
+	cout << endl << "  Shortest paths:" << endl;
 
 	for (auto vert : graph->verts | boost::adaptors::map_values)
 	{
