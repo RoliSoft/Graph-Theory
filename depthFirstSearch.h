@@ -13,7 +13,7 @@ public:
 	bool acyclic;
 	std::map<Vertex*, int> tock;
 	std::map<Vertex*, int> levels;
-	std::vector<Edge*> backEdges;
+	std::unordered_set<Edge*> backEdges;
 	std::unordered_set<Edge*> artEdges;
 	std::unordered_set<Vertex*> artVerts;
 

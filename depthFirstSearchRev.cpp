@@ -16,6 +16,11 @@ void DepthFirstSearchRev::search()
 {
 	using namespace std;
 
+	if (!graph->directed)
+	{
+		return;
+	}
+
 	for (auto vert : graph->verts | boost::adaptors::map_values)
 	{
 		colors[vert] = color::white;
@@ -82,6 +87,11 @@ void DepthFirstSearchRev::discover(Vertex* vert)
 void DepthFirstSearchRev::printInfo()
 {
 	using namespace std;
+
+	if (!graph->directed)
+	{
+		return;
+	}
 
 	cout << "  Strongly connected components:  " << endl << "   ";
 

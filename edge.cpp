@@ -7,23 +7,10 @@ Edge::Edge(Vertex* src, Vertex* dst, int weight)
 	  dst(dst),
 	  weight(weight)
 {
-	if (src->graph->directed)
-	{
-		this->src->out.emplace(this);
-		this->dst->in.emplace(this);
-	}
-	else
-	{
-		if (this->src->deg.find(this) == this->src->deg.end())
-		{
-			this->src->deg.emplace(this);
-		}
-
-		if (this->dst->deg.find(this) == this->dst->deg.end())
-		{
-			this->dst->deg.emplace(this);
-		}
-	}
+	this->src->out.emplace(this);
+	this->dst->in.emplace(this);
+	this->src->deg.emplace(this);
+	this->dst->deg.emplace(this);
 }
 
 std::size_t Edge::hash::operator()(const Edge* e) const

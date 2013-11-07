@@ -10,11 +10,11 @@ int main()
 
 	Graph graph("input.txt");
 	DepthFirstSearch dfs(&graph);
-	DepthFirstSearchRev dfr(&graph, &dfs);
+	//DepthFirstSearchRev dfr(&graph, &dfs);
 	//BreadthFirstSearch bfs(&graph);
 
 	dfs.search();
-	dfr.search();
+	//dfr.search();
 	//bfs.search();
 
 	system("pause");

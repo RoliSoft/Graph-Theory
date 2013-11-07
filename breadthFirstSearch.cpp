@@ -34,17 +34,19 @@ void BreadthFirstSearch::search()
 				auto svert = queue.front();
 				queue.pop_front();
 
-				for (auto edge : svert->out)
+				for (auto edge : (graph->directed ? svert->out : svert->deg))
 				{
-					switch (colors[edge->dst])
+					auto wert = (graph->directed ? edge->dst : (edge->dst == svert ? edge->src : edge->dst));
+
+					switch (colors[wert])
 					{
 					case color::white:
-						colors[edge->dst] = color::gray;
-						tick[edge->dst] = tick[svert] + 1;
+						colors[wert] = color::gray;
+						tick[wert] = tick[svert] + 1;
 						categs[edge] = kind::tree;
-						parents[edge->dst] = svert;
-						queue.push_back(edge->dst);
-						grayed.emplace_back(edge->dst);
+						parents[wert] = svert;
+						queue.push_back(wert);
+						grayed.emplace_back(wert);
 						parentheses += "(";
 						break;
 
@@ -55,7 +57,7 @@ void BreadthFirstSearch::search()
 					case color::black:
 						if (categs[edge] != kind::tree)
 						{
-							categs[edge] = tick[vert] <= tick[edge->dst] + 1 ? kind::cross : kind::forward;
+							categs[edge] = tick[vert] <= tick[wert] + 1 ? kind::cross : kind::forward;
 						}
 						break;
 					}
