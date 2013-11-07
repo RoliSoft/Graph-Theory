@@ -13,6 +13,14 @@ Edge::Edge(Vertex* src, Vertex* dst, int weight)
 	this->dst->deg.emplace(this);
 }
 
+Edge::~Edge()
+{
+	this->src->out.erase(this);
+	this->dst->in.erase(this);
+	this->src->deg.erase(this);
+	this->dst->deg.erase(this);
+}
+
 std::size_t Edge::hash::operator()(const Edge* e) const
 {
 	if (e->src->graph->directed)

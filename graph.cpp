@@ -89,15 +89,15 @@ Graph::Graph(std::string file)
 
 	cout << endl;
 
-	init(directed, weighted.get_value_or(false), vr.size(), el.size(), el);
+	init(directed, weighted.get_value_or(false), vr.size(), el);
 }
 
-Graph::Graph(bool directed, bool weighted, int vertCnt, int edgeCnt, std::vector<std::tuple<int, int, int>> edgeList)
+Graph::Graph(bool directed, bool weighted, int vertCnt, std::vector<std::tuple<int, int, int>> edgeList)
 {
-	init(directed, weighted, vertCnt, edgeCnt, edgeList);
+	init(directed, weighted, vertCnt, edgeList);
 }
 
-void Graph::init(bool directed, bool weighted, int vertCnt, int edgeCnt, std::vector<std::tuple<int, int, int>> edgeList)
+void Graph::init(bool directed, bool weighted, int vertCnt, std::vector<std::tuple<int, int, int>> edgeList)
 {
 	using namespace std;
 
@@ -105,13 +105,11 @@ void Graph::init(bool directed, bool weighted, int vertCnt, int edgeCnt, std::ve
 
 	this->directed = directed;
 	this->weighted = weighted;
-	this->vertCnt  = vertCnt;
-	this->edgeCnt  = edgeCnt;
 
-	cout << " Number of vertices: " << vertCnt << "; edges: " << edgeCnt << "; graph is " << (!directed ? "not " : "") << "directed and " << (!weighted ? "not " : "") << "weighted." << endl << endl;
+	cout << " Number of vertices: " << vertCnt << "; edges: " << edgeList.size() << "; graph is " << (!directed ? "not " : "") << "directed and " << (!weighted ? "not " : "") << "weighted." << endl << endl;
 
 	verts  = map<int, Vertex*>();
-	edges  = vector<Edge*>(edgeCnt);
+	edges  = set<Edge*, Edge::less>();
 	matrix = Matrix<bool>(vertCnt + 1, vertCnt + 1, false);
 
 	if (weighted)
@@ -119,7 +117,7 @@ void Graph::init(bool directed, bool weighted, int vertCnt, int edgeCnt, std::ve
 		weightrix = Matrix<int>(vertCnt + 1, vertCnt + 1, INT_MAX);
 	}
 
-	for (int i = 0; i < edgeCnt; i++)
+	for (int i = 0; i < (int)edgeList.size(); i++)
 	{
 		int src, dst, weight;
 		tie(src, dst, weight) = edgeList[i];
@@ -134,26 +132,14 @@ void Graph::init(bool directed, bool weighted, int vertCnt, int edgeCnt, std::ve
 			verts.emplace(dst, new Vertex(this, dst));
 		}
 
-		edges[i] = new Edge(verts[src], verts[dst], weight);
+		auto edge = new Edge(verts[src], verts[dst], weight);
 
-		matrix.set(edges[i]->src->id, edges[i]->dst->id, true);
+		cout << "  " << edge->src->id << " " << (!directed ? "<" : "") << "-" << (weighted ? "[" + to_string(edge->weight) + "]" : "") << "-> " << edge->dst->id << endl;
 
-		if (!directed)
+		if (!addEdge(edge))
 		{
-			matrix.set(edges[i]->dst->id, edges[i]->src->id, true);
+			cout << "   ^ Failed to add edge!" << endl;
 		}
-
-		if (weighted)
-		{
-			weightrix.set(edges[i]->src->id, edges[i]->dst->id, weight);
-
-			if (!directed)
-			{
-				weightrix.set(edges[i]->dst->id, edges[i]->src->id, weight);
-			}
-		}
-
-		cout << "  " << edges[i]->src->id << " " << (!directed ? "<" : "") << "-" << (weighted ? "[" + to_string(edges[i]->weight) + "]" : "") << "-> " << edges[i]->dst->id << endl;
 	}
 
 	cout << endl << " Edge list:" << endl;
@@ -203,6 +189,62 @@ void Graph::init(bool directed, bool weighted, int vertCnt, int edgeCnt, std::ve
 	}
 }
 
+bool Graph::addEdge(Edge* edge)
+{
+	if (!edges.emplace(edge).second)
+	{
+		return false;
+	}
+
+	matrix.set(edge->src->id, edge->dst->id, true);
+
+	if (!directed)
+	{
+		matrix.set(edge->dst->id, edge->src->id, true);
+	}
+
+	if (weighted)
+	{
+		weightrix.set(edge->src->id, edge->dst->id, edge->weight);
+
+		if (!directed)
+		{
+			weightrix.set(edge->dst->id, edge->src->id, edge->weight);
+		}
+	}
+
+	return true;
+}
+
+bool Graph::removeEdge(Edge* edge)
+{
+	if (edges.erase(edge) == 0)
+	{
+		return false;
+	}
+
+	matrix.set(edge->src->id, edge->dst->id, false);
+
+	if (!directed)
+	{
+		matrix.set(edge->dst->id, edge->src->id, false);
+	}
+
+	if (weighted)
+	{
+		weightrix.set(edge->src->id, edge->dst->id, INT_MAX);
+
+		if (!directed)
+		{
+			weightrix.set(edge->dst->id, edge->src->id, INT_MAX);
+		}
+	}
+
+	delete edge;
+
+	return true;
+}
+
 Graph* Graph::getCloned()
 {
 	std::vector<std::tuple<int, int, int>> el;
@@ -212,7 +254,7 @@ Graph* Graph::getCloned()
 		el.push_back(std::make_tuple(edge->src->id, edge->dst->id, edge->weight));
 	}
 
-	return new Graph(directed, weighted, vertCnt, edgeCnt, el);
+	return new Graph(directed, weighted, verts.size(), el);
 }
 
 Graph* Graph::getTransposed()
@@ -224,5 +266,5 @@ Graph* Graph::getTransposed()
 		el.push_back(std::make_tuple(edge->dst->id, edge->src->id, edge->weight));
 	}
 
-	return new Graph(directed, weighted, vertCnt, edgeCnt, el);
+	return new Graph(directed, weighted, verts.size(), el);
 }

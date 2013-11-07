@@ -9,6 +9,8 @@ public:
 
 	Edge(class Vertex* src, class Vertex* dst, int weight = 0);
 
+	~Edge();
+
 	struct hash { // std::hash<Edge*>
 		std::size_t operator()(const Edge* e) const;
 	};
