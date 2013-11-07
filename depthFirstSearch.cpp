@@ -8,7 +8,7 @@
 DepthFirstSearch::DepthFirstSearch(Graph* graph)
 	: GraphSearch(graph),
 	  tock(std::map<Vertex*, int>()),
-	  bmin(std::map<Vertex*, int>()),
+	  levels(std::map<Vertex*, int>()),
 	  backEdges(std::vector<Edge*>()),
 	  artEdges(std::unordered_set<Edge*>()),
 	  artVerts(std::unordered_set<Vertex*>())
@@ -24,7 +24,7 @@ void DepthFirstSearch::search()
 		colors[vert] = color::white;
 		tick[vert]   = 0;
 		tock[vert]   = 0;
-		bmin[vert]   = 0;
+		levels[vert] = 0;
 	}
 
 	time = 0;
@@ -42,35 +42,19 @@ void DepthFirstSearch::search()
 		}
 	}
 
-	for (auto vert : graph->verts | boost::adaptors::map_values)
-	{
-		for (auto edge : vert->out)
-		{
-			if (bmin[edge->dst] > tick[vert])
-			{
-				artEdges.emplace(edge);
-			}
-
-			if ((parents.count(vert) == 0 && vert->out.size() > 1)
-			 || (parents.count(vert) != 0 && bmin[edge->dst] >= tick[vert]))
-			{
-				artVerts.emplace(vert);
-			}
-		}
-	}
-
 	cout << " Depth-first search:" << endl;
 	printInfo();
 	cout << endl;
 }
 
-void DepthFirstSearch::discover(Vertex* vert)
+int DepthFirstSearch::discover(Vertex* vert, int level)
 {
 	colors[vert] = color::gray;
-	tick[vert] = bmin[vert] = time;
-	time++;
+	tick[vert] = time++;
+	levels[vert] = level;
 	grayed.emplace_back(vert);
 	parentheses += "(";
+	int uminvm, rfminvm = INT_MAX;
 
 	for (auto edge : vert->out)
 	{
@@ -80,9 +64,12 @@ void DepthFirstSearch::discover(Vertex* vert)
 			categs[edge] = kind::tree;
 			parents[edge->dst] = vert;
 
-			discover(edge->dst);
+			uminvm = discover(edge->dst, level + 1);
 
-			bmin[vert] = std::min(bmin[vert], bmin[edge->dst]);
+			if (uminvm < level && uminvm < rfminvm)
+			{
+				rfminvm = uminvm;
+			}
 			break;
 
 		case color::gray:
@@ -91,19 +78,14 @@ void DepthFirstSearch::discover(Vertex* vert)
 
 			backEdges.push_back(edge);
 
-			if (edge->dst != parents[vert])
+			if (levels[edge->dst] < level - 1 && levels[edge->dst] < rfminvm)
 			{
-				bmin[vert] = std::min(bmin[vert], tick[edge->dst]);
+				rfminvm = levels[edge->dst];
 			}
 			break;
 
 		case color::black:
 			categs[edge] = tick[vert] < tick[edge->dst] ? kind::forward : kind::cross;
-
-			if (edge->dst != parents[vert])
-			{
-				bmin[vert] = std::min(bmin[vert], tick[edge->dst]);
-			}
 			break;
 		}
 	}
@@ -112,6 +94,13 @@ void DepthFirstSearch::discover(Vertex* vert)
 	tock[vert] = time;
 	blacked.emplace_back(vert);
 	parentheses += ")";
+
+	if (parents.count(vert) != 0 && rfminvm == INT_MAX)
+	{
+		artEdges.emplace(new Edge(parents[vert], vert));
+	}
+
+	return rfminvm;
 }
 
 void DepthFirstSearch::printInfo()

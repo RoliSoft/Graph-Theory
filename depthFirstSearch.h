@@ -12,7 +12,7 @@ public:
 	int time;
 	bool acyclic;
 	std::map<Vertex*, int> tock;
-	std::map<Vertex*, int> bmin;
+	std::map<Vertex*, int> levels;
 	std::vector<Edge*> backEdges;
 	std::unordered_set<Edge*> artEdges;
 	std::unordered_set<Vertex*> artVerts;
@@ -22,7 +22,7 @@ public:
 	void search();
 
 private:
-	void discover(Vertex* vert);
+	int discover(Vertex* vert, int level = 0);
 
 protected:
 	void printInfo();

@@ -53,8 +53,7 @@ void DepthFirstSearchRev::search()
 void DepthFirstSearchRev::discover(Vertex* vert)
 {
 	colors[vert] = color::gray;
-	tick[vert] = time;
-	time++;
+	tick[vert] = time++;
 	grayed.emplace_back(vert);
 
 	for (auto edge : vert->in)

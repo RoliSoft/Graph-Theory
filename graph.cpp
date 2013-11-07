@@ -28,18 +28,20 @@ Graph::Graph(std::string file)
 	int _dtmp;
 	if (!(sh >> _dtmp))
 	{
-		cerr << "Unable to parse input file: need 0 or 1 in first line indicating whether the graph is directed." << endl;
+		cerr << "  Unable to parse input file:" << endl << "    Need 0 or 1 in first line indicating whether the graph is directed." << endl << endl;
 		return;
 	}
 	else
 	{
 		directed = _dtmp == 1;
+		cout << "  Graph explicitly set to be " << (!directed ? "not " : "") << "directed." << endl;
 	}
 
 	int _wtmp;
 	if (!(!(sh >> _wtmp)))
 	{
 		weighted = _wtmp == 1;
+		cout << "  Graph explicitly set to be " << (!weighted ? "not " : "") << "weighted." << endl;
 	}
 
 	vector<tuple<int, int, int>> el;
@@ -61,7 +63,7 @@ Graph::Graph(std::string file)
 			{
 				if (!(ss >> weight))
 				{
-					cerr << "Unable to parse input file: graph is weighted but no weight is specified for " << src << " -> " << dst << "." << endl;
+					cerr << "  Unable to parse input file:" << endl << "    Graph is weighted but no weight is specified for " << src << " -> " << dst << "." << endl << endl;
 					return;
 				}
 			}
@@ -69,6 +71,7 @@ Graph::Graph(std::string file)
 		else
 		{
 			weighted = !(!(ss >> weight));
+			cout << "  Graph implicitly set to be " << (!weighted.get_value_or(false) ? "not weighted." : "weighted due to weight on " + to_string(src) + " -> " + to_string(dst)) << endl;
 		}
 
 		if (vr.count(src) == 0)
@@ -83,6 +86,8 @@ Graph::Graph(std::string file)
 
 		el.push_back(make_tuple(src, dst, weight));
 	}
+
+	cout << endl;
 
 	init(directed, weighted.get_value_or(false), vr.size(), el.size(), el);
 }
