@@ -40,9 +40,7 @@ void DepthFirstSearch::search()
 		}
 	}
 
-	cout << " Depth-first search:" << endl;
 	printInfo();
-	cout << endl;
 }
 
 int DepthFirstSearch::discover(Vertex* vert, int level)
@@ -132,7 +130,7 @@ void DepthFirstSearch::printInfo()
 
 	using namespace std;
 
-	cout << endl << "  Graph is " << (!acyclic ? "not " : "") << "acyclic." << endl;
+	cout << " Depth-first search:" << endl << endl << "  Graph is " << (!acyclic ? "not " : "") << "acyclic." << endl;
 
 	if (acyclic)
 	{
@@ -201,5 +199,5 @@ void DepthFirstSearch::printInfo()
 		cout << vert->id;
 	}
 
-	cout << endl;
+	cout << endl << endl;
 }

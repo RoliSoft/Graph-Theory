@@ -50,9 +50,7 @@ void DepthFirstSearchRev::search()
 		}
 	}
 
-	cout << " Reverse depth-first search:" << endl;
 	printInfo();
-	cout << endl;
 }
 
 void DepthFirstSearchRev::discover(Vertex* vert)
@@ -93,7 +91,7 @@ void DepthFirstSearchRev::printInfo()
 		return;
 	}
 
-	cout << "  Strongly connected components:  " << endl << "   ";
+	cout << " Reverse depth-first search:" << endl << "  Strongly connected components:  " << endl << "   ";
 
 	auto sep = false;
 	for (auto vert : grayed)
@@ -114,5 +112,5 @@ void DepthFirstSearchRev::printInfo()
 		}
 	}
 
-	cout << endl;
+	cout << endl << endl;
 }

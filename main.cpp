@@ -3,6 +3,7 @@
 #include "depthFirstSearch.h"
 #include "depthFirstSearchRev.h"
 #include "breadthFirstSearch.h"
+#include "primMinSpanTree.h"
 
 int main()
 {
@@ -12,10 +13,12 @@ int main()
 	DepthFirstSearch dfs(&graph);
 	//DepthFirstSearchRev dfr(&graph, &dfs);
 	//BreadthFirstSearch bfs(&graph);
+	PrimMinSpanTree pms(&graph);
 
 	dfs.search();
 	//dfr.search();
 	//bfs.search();
+	pms.search();
 
 	system("pause");
 	return EXIT_SUCCESS;

@@ -32,7 +32,7 @@ public:
 
 private:
 	void init(bool directed, bool weighted, int vertCnt, const std::vector<std::tuple<int, int, int>>& edgeList);
-	template <typename T> void print(const boost::numeric::ublas::matrix<T>& matrix, T def);
+	template <typename T> void print(boost::numeric::ublas::matrix<T>& matrix, T def);
 };
 
 #endif

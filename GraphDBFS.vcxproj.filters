@@ -48,6 +48,9 @@
     <ClCompile Include="depthFirstSearchRev.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
+    <ClCompile Include="primMinSpanTree.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="depthFirstSearchRev.h">
+      <Filter>Header Files\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="primMinSpanTree.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>

@@ -278,7 +278,7 @@ Graph* Graph::getTransposed()
 	return new Graph(directed, weighted, verts.size(), el);
 }
 
-template <typename T> void Graph::print(const boost::numeric::ublas::matrix<T>& matrix, T def)
+template <typename T> void Graph::print(boost::numeric::ublas::matrix<T>& matrix, T def)
 {
 	using namespace std;
 
