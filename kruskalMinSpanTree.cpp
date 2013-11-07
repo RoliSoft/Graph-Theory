@@ -1,9 +1,9 @@
-#include <unordered_set>
 #include <deque>
 #include "kruskalMinSpanTree.h"
 
 KruskalMinSpanTree::KruskalMinSpanTree(Graph* graph)
 	: GraphAlgo(graph),
+	  prep(std::unordered_map<int, int>()),
 	  tree(std::vector<Edge*>()),
 	  weight(0)
 {
@@ -13,34 +13,47 @@ void KruskalMinSpanTree::search()
 {
 	using namespace std;
 
-	unordered_set<Vertex*> verts;
-	unordered_set<Edge*> edges;
+	for (auto vert : graph->verts)
+	{
+		prep[vert.first] = vert.first;
+	}
+
 	deque<Edge*> edgeAsc(graph->edges.begin(), graph->edges.end());
 
 	sort(edgeAsc.begin(), edgeAsc.end(), [](const Edge* a, const Edge* b){ return a->weight < b->weight; });
 	
-	while (edges.size() != graph->verts.size() - 1)
+	for (auto edge : edgeAsc)
 	{
-		auto edge = edgeAsc.front();
-		edgeAsc.pop_front();
+		auto src = prep[edge->src->id];
+		auto dst = prep[edge->dst->id];
 
-		if (verts.find(edge->dst) != verts.end() && verts.find(edge->src) != verts.end() && edges.size() != graph->verts.size() - 2)
+		if (src != dst)
 		{
-			continue;
+			tree.push_back(edge);
+			merge(src, dst);
+			weight += edge->weight;
 		}
-
-		verts.emplace(edge->src);
-		verts.emplace(edge->dst);
-
-		edges.emplace(edge);
-		tree.push_back(edge);
-
-		weight += edge->weight;
 	}
 
 	printInfo();
 }
 
+void KruskalMinSpanTree::merge(int src, int dst)
+{
+	if (src > dst)
+	{
+		merge(dst, src);
+		return;
+	}
+
+	for (auto& vert : prep)
+	{
+		if (vert.second == dst)
+		{
+			vert.second = src;
+		}
+	}
+}
 
 void KruskalMinSpanTree::printInfo()
 {
