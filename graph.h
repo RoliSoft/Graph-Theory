@@ -25,8 +25,11 @@ public:
 	Graph(std::string file);
 	Graph(bool directed, bool weighted, int vertCnt, int edgeCnt, std::vector<std::tuple<int, int, int>> edgeList);
 
-	Graph* clone();
-	Graph* transpose();
+	Graph* getCloned();
+	Graph* getTransposed();
+
+private:
+	void init(bool directed, bool weighted, int vertCnt, int edgeCnt, std::vector<std::tuple<int, int, int>> edgeList);
 };
 
 #endif
