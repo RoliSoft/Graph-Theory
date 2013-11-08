@@ -8,6 +8,7 @@
 #include "dijkstraShortPath.h"
 #include "bellmanFordShortPath.h"
 #include "topoSortShortPath.h"
+#include "floydShortPath.h"
 
 int main()
 {
@@ -22,6 +23,7 @@ int main()
 	DijkstraShortPath dsp(&graph);
 	BellmanFordShortPath bfp(&graph);
 	TopoSortShortPath tsp(&graph, &dfs);
+	FloydShortPath fsp(&graph);
 
 	dfs.search(); dfs.dump();
 	dfr.search(); dfr.dump();
@@ -31,6 +33,7 @@ int main()
 	dsp.search(); dsp.dump();
 	bfp.search(); bfp.dump();
 	tsp.search(); tsp.dump();
+	fsp.search(); fsp.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;

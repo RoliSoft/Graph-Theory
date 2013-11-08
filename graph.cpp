@@ -188,13 +188,15 @@ void Graph::init(bool directed, bool weighted, int vertCnt, const std::vector<st
 		}
 	}
 
+	int start = (*verts.begin()).first;
+
 	cout << endl << " Adjacency matrix:" << endl;
-	print(matrix, false);
+	print(matrix, false, start);
 
 	if (weighted)
 	{
 		cout << " Weighted adjacency matrix:" << endl;
-		print(weightrix, INT_MAX);
+		print(weightrix, INT_MAX, start);
 	}
 }
 
@@ -217,6 +219,8 @@ bool Graph::addEdge(Edge* edge)
 	}
 
 	matrix.insert_element(edge->src->id, edge->dst->id, true);
+	matrix.insert_element(edge->src->id, edge->src->id, true);
+	matrix.insert_element(edge->dst->id, edge->dst->id, true);
 
 	if (!directed)
 	{
@@ -226,6 +230,8 @@ bool Graph::addEdge(Edge* edge)
 	if (weighted)
 	{
 		weightrix.insert_element(edge->src->id, edge->dst->id, edge->weight);
+		weightrix.insert_element(edge->src->id, edge->src->id, 0);
+		weightrix.insert_element(edge->dst->id, edge->dst->id, 0);
 
 		if (!directed)
 		{
@@ -292,26 +298,26 @@ Graph* Graph::getTransposed()
 	return new Graph(directed, weighted, verts.size(), el);
 }
 
-template <typename T> void Graph::print(boost::numeric::ublas::matrix<T>& matrix, T def)
+template <typename T> void Graph::print(boost::numeric::ublas::matrix<T>& matrix, T def, int start)
 {
 	using namespace std;
 
 	cout << endl;
 
-	for (int i = 0; i < (int)matrix.size1(); i++)
+	for (int i = start; i < (int)matrix.size1(); i++)
 	{
-		if (i == 0)
+		if (i == start)
 		{
 			cout << "  " << left << setw(4) << (def == numeric_limits<T>::max() ? "inf" : " " + to_string(def)) << right;
 
-			for (int j = 0; j < (int)matrix.size2(); j++)
+			for (int j = start; j < (int)matrix.size2(); j++)
 			{
-				cout << setw(3) << (j + 1) << " ";
+				cout << setw(3) << j << " ";
 			}
 
 			cout << endl << "     +";
 
-			for (int j = 0; j < (int)matrix.size2(); j++)
+			for (int j = start; j < (int)matrix.size2(); j++)
 			{
 				cout << " -- ";
 			}
@@ -319,9 +325,9 @@ template <typename T> void Graph::print(boost::numeric::ublas::matrix<T>& matrix
 			cout << endl;
 		}
 
-		cout << "  " << setw(2) << (i + 1) << " |";
+		cout << "  " << setw(2) << i << " |";
 
-		for (int j = 0; j < (int)matrix.size2(); j++)
+		for (int j = start; j < (int)matrix.size2(); j++)
 		{
 			auto val = matrix.at_element(i, j);
 

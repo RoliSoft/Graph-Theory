@@ -30,9 +30,10 @@ public:
 	Graph* getCloned();
 	Graph* getTransposed();
 
+	template <typename T> static void print(boost::numeric::ublas::matrix<T>& matrix, T def, int start = 0);
+
 private:
 	void init(bool directed, bool weighted, int vertCnt, const std::vector<std::tuple<int, int, int>>& edgeList);
-	template <typename T> void print(boost::numeric::ublas::matrix<T>& matrix, T def);
 };
 
 #endif
