@@ -123,6 +123,14 @@ void Graph::init(bool directed, bool weighted, int vertCnt, const std::vector<st
 		int src, dst, weight;
 		tie(src, dst, weight) = edgeList[i];
 
+		if (!directed)
+		{
+			if (src > dst)
+			{
+				swap(src, dst);
+			}
+		}
+
 		if (!verts.count(src))
 		{
 			verts.emplace(src, new Vertex(this, src));
@@ -201,6 +209,12 @@ bool Graph::addEdge(Edge* edge)
 	edge->dst->in.emplace(edge);
 	edge->src->deg.emplace(edge);
 	edge->dst->deg.emplace(edge);
+
+	if (!directed)
+	{
+		edge->dst->out.emplace(edge);
+		edge->src->in.emplace(edge);
+	}
 
 	matrix.insert_element(edge->src->id, edge->dst->id, true);
 

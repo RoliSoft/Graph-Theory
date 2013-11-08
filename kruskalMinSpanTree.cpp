@@ -40,12 +40,6 @@ void KruskalMinSpanTree::search()
 
 void KruskalMinSpanTree::merge(int src, int dst)
 {
-	if (src > dst)
-	{
-		merge(dst, src);
-		return;
-	}
-
 	for (auto& vert : prep)
 	{
 		if (vert.second == dst)
