@@ -12,7 +12,7 @@ GraphSearch::GraphSearch(Graph* graph)
 {
 }
 
-void GraphSearch::printInfo()
+void GraphSearch::dump()
 {
 	using namespace std;
 

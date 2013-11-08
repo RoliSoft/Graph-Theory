@@ -23,14 +23,14 @@ int main()
 	BellmanFordShortPath bfp(&graph);
 	TopoSortShortPath tsp(&graph, &dfs);
 
-	dfs.search();
-	dfr.search();
-	bfs.search();
-	pms.search();
-	kms.search();
-	dsp.search();
-	bfp.search();
-	tsp.search();
+	dfs.search(); dfs.dump();
+	dfr.search(); dfr.dump();
+	bfs.search(); bfs.dump();
+	pms.search(); pms.dump();
+	kms.search(); kms.dump();
+	dsp.search(); dsp.dump();
+	bfp.search(); bfp.dump();
+	tsp.search(); tsp.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;

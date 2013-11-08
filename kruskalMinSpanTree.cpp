@@ -43,11 +43,9 @@ void KruskalMinSpanTree::search()
 			weight += edge->weight;
 		}
 	}
-
-	printInfo();
 }
 
-void KruskalMinSpanTree::printInfo()
+void KruskalMinSpanTree::dump()
 {
 	using namespace std;
 

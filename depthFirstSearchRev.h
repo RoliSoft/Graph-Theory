@@ -17,12 +17,10 @@ public:
 	DepthFirstSearchRev(Graph* graph, DepthFirstSearch* dfs = nullptr);
 
 	void search();
+	void dump();
 
 private:
 	void discover(Vertex* vert);
-
-protected:
-	void printInfo();
 };
 
 #endif

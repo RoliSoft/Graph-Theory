@@ -15,9 +15,7 @@ public:
 	KruskalMinSpanTree(Graph* graph);
 
 	void search();
-
-protected:
-	void printInfo();
+	void dump();
 };
 
 #endif

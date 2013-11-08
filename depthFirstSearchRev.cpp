@@ -49,8 +49,6 @@ void DepthFirstSearchRev::search()
 			blacked.emplace_back(nullptr);
 		}
 	}
-
-	printInfo();
 }
 
 void DepthFirstSearchRev::discover(Vertex* vert)
@@ -82,7 +80,7 @@ void DepthFirstSearchRev::discover(Vertex* vert)
 	blacked.emplace_back(vert);
 }
 
-void DepthFirstSearchRev::printInfo()
+void DepthFirstSearchRev::dump()
 {
 	using namespace std;
 
@@ -94,24 +92,32 @@ void DepthFirstSearchRev::printInfo()
 		return;
 	}
 
-	cout << "  Strongly connected components:  " << endl << "   ";
+	cout << "  Strongly connected components: ";
 
-	auto sep = false;
-	for (auto vert : grayed)
+	if (grayed.size() == count(grayed.begin(), grayed.end(), nullptr))
 	{
-		if (vert == nullptr)
+		cout << "None.";
+	}
+	else
+	{
+		cout << endl << "   ";
+		auto sep = false;
+		for (auto vert : grayed)
 		{
-			sep = true;
-		}
-		else
-		{
-			if (sep)
+			if (vert == nullptr)
 			{
-				cout << endl << "   ";
-				sep = false;
+				sep = true;
 			}
+			else
+			{
+				if (sep)
+				{
+					cout << endl << "   ";
+					sep = false;
+				}
 
-			cout << vert->id << " ";
+				cout << vert->id << " ";
+			}
 		}
 	}
 

@@ -51,12 +51,9 @@ void DijkstraShortPath::search(Vertex* source)
 			}
 		}
 	}
-
-	printInfo();
 }
 
-
-void DijkstraShortPath::printInfo()
+void DijkstraShortPath::dump()
 {
 	using namespace std;
 

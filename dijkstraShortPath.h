@@ -16,9 +16,7 @@ public:
 	DijkstraShortPath(Graph* graph);
 
 	void search(Vertex* source = nullptr);
-
-protected:
-	void printInfo();
+	void dump();
 };
 
 #endif

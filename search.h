@@ -37,7 +37,7 @@ public:
 	GraphSearch(Graph* graph);
 
 protected:
-	virtual void printInfo();
+	virtual void dump();
 };
 
 #endif

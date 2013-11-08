@@ -21,12 +21,10 @@ public:
 	DepthFirstSearch(Graph* graph);
 
 	void search();
+	void dump();
 
 private:
 	int discover(Vertex* vert, int level = 0);
-
-protected:
-	void printInfo();
 };
 
 #endif

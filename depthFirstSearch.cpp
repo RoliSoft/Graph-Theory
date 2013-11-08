@@ -39,8 +39,6 @@ void DepthFirstSearch::search()
 			blacked.emplace_back(nullptr);
 		}
 	}
-
-	printInfo();
 }
 
 int DepthFirstSearch::discover(Vertex* vert, int level)
@@ -124,13 +122,13 @@ int DepthFirstSearch::discover(Vertex* vert, int level)
 	return rfminvm;
 }
 
-void DepthFirstSearch::printInfo()
+void DepthFirstSearch::dump()
 {
 	using namespace std;
 
 	cout << " Depth-first search:" << endl;
 
-	GraphSearch::printInfo();
+	GraphSearch::dump();
 
 	cout << endl << "  Graph is " << (!acyclic ? "not " : "") << "acyclic." << endl;
 
@@ -177,29 +175,52 @@ void DepthFirstSearch::printInfo()
 		}
 	}
 
-	cout << endl << "  Articulation edges:" << endl;
-
-	for (auto edge : artEdges)
+	if (!graph->directed)
 	{
-		cout << "   " << edge->src->id << " -> " << edge->dst->id << endl;
-	}
+		cout << endl << "  Connected component count: " << count(grayed.begin(), grayed.end(), nullptr) << endl << endl << "  Articulation edges:";
 
-	cout << endl << "  Articulation vertices:" << endl << "   ";
-
-	bool frst = true;
-	for (auto vert : artVerts)
-	{
-		if (frst)
+		if (artEdges.size() == 0)
 		{
-			frst = false;
+			cout << " None." << endl;
 		}
 		else
 		{
-			cout << ", ";
+			cout << endl;
+
+			for (auto edge : artEdges)
+			{
+				cout << "   " << edge->src->id << " -> " << edge->dst->id << endl;
+			}
 		}
 
-		cout << vert->id;
+		cout << endl << "  Articulation vertices:";
+
+		if (artVerts.size() == 0)
+		{
+			cout << " None.";
+		}
+		else
+		{
+			cout << endl << "   ";
+
+			bool frst = true;
+			for (auto vert : artVerts)
+			{
+				if (frst)
+				{
+					frst = false;
+				}
+				else
+				{
+					cout << ", ";
+				}
+
+				cout << vert->id;
+			}
+		}
+
+		cout << endl;
 	}
 
-	cout << endl << endl;
+	cout << endl;
 }

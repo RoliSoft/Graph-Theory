@@ -60,12 +60,9 @@ void PrimMinSpanTree::search()
 
 		weight += best->weight;
 	}
-
-	printInfo();
 }
 
-
-void PrimMinSpanTree::printInfo()
+void PrimMinSpanTree::dump()
 {
 	using namespace std;
 

@@ -19,9 +19,7 @@ public:
 	TopoSortShortPath(Graph* graph, DepthFirstSearch* dfs = nullptr);
 
 	void search(Vertex* source = nullptr);
-
-protected:
-	void printInfo();
+	void dump();
 };
 
 #endif

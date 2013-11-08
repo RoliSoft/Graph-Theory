@@ -63,12 +63,10 @@ void BellmanFordShortPath::search(Vertex* source)
 			break;
 		}
 	}
-
-	printInfo();
 }
 
 
-void BellmanFordShortPath::printInfo()
+void BellmanFordShortPath::dump()
 {
 	using namespace std;
 

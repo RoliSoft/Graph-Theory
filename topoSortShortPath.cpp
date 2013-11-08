@@ -56,11 +56,9 @@ void TopoSortShortPath::search(Vertex* source)
 			}
 		}
 	}
-
-	printInfo();
 }
 
-void TopoSortShortPath::printInfo()
+void TopoSortShortPath::dump()
 {
 	using namespace std;
 

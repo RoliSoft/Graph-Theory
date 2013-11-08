@@ -72,19 +72,17 @@ void BreadthFirstSearch::search()
 			blacked.emplace_back(nullptr);
 		}
 	}
-
-	printInfo();
 }
 
-void BreadthFirstSearch::printInfo()
+void BreadthFirstSearch::dump()
 {
 	using namespace std;
 
 	cout << " Breadth-first search:" << endl;
 
-	GraphSearch::printInfo();
+	GraphSearch::dump();
 
-	cout << endl << "  Shortest paths to first vertex via hop count:" << endl;
+	cout << endl << "  Shortest paths to first vertex via hop count:" << endl << endl;
 
 	for (auto vert : graph->verts | boost::adaptors::map_values)
 	{
