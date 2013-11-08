@@ -6,6 +6,7 @@
 #include "primMinSpanTree.h"
 #include "kruskalMinSpanTree.h"
 #include "dijkstraShortPath.h"
+#include "bellmanFordShortPath.h"
 
 int main()
 {
@@ -18,6 +19,7 @@ int main()
 	PrimMinSpanTree pms(&graph);
 	KruskalMinSpanTree kms(&graph);
 	DijkstraShortPath dsp(&graph);
+	BellmanFordShortPath bfp(&graph);
 
 	//dfs.search();
 	//dfr.search();
@@ -25,6 +27,7 @@ int main()
 	pms.search();
 	kms.search();
 	dsp.search();
+	bfp.search();
 
 	system("pause");
 	return EXIT_SUCCESS;
