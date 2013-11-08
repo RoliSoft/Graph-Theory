@@ -1,9 +1,8 @@
-#include <deque>
+#include <unordered_map>
 #include "kruskalMinSpanTree.h"
 
 KruskalMinSpanTree::KruskalMinSpanTree(Graph* graph)
 	: GraphAlgo(graph),
-	  prep(std::unordered_map<int, int>()),
 	  tree(std::vector<Edge*>()),
 	  weight(0)
 {
@@ -13,12 +12,14 @@ void KruskalMinSpanTree::search()
 {
 	using namespace std;
 
+	unordered_map<int, int> prep;
+
 	for (auto vert : graph->verts)
 	{
 		prep[vert.first] = vert.first;
 	}
 
-	deque<Edge*> edgeAsc(graph->edges.begin(), graph->edges.end());
+	vector<Edge*> edgeAsc(graph->edges.begin(), graph->edges.end());
 
 	sort(edgeAsc.begin(), edgeAsc.end(), [](const Edge* a, const Edge* b){ return a->weight < b->weight; });
 	
@@ -30,23 +31,20 @@ void KruskalMinSpanTree::search()
 		if (src != dst)
 		{
 			tree.push_back(edge);
-			merge(src, dst);
+
+			for (auto& vert : prep)
+			{
+				if (vert.second == dst)
+				{
+					vert.second = src;
+				}
+			}
+
 			weight += edge->weight;
 		}
 	}
 
 	printInfo();
-}
-
-void KruskalMinSpanTree::merge(int src, int dst)
-{
-	for (auto& vert : prep)
-	{
-		if (vert.second == dst)
-		{
-			vert.second = src;
-		}
-	}
 }
 
 void KruskalMinSpanTree::printInfo()

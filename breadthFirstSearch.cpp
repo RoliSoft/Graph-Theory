@@ -84,7 +84,7 @@ void BreadthFirstSearch::printInfo()
 
 	GraphSearch::printInfo();
 
-	cout << endl << "  Shortest paths:" << endl;
+	cout << endl << "  Shortest paths to first vertex via hop count:" << endl;
 
 	for (auto vert : graph->verts | boost::adaptors::map_values)
 	{
@@ -100,5 +100,5 @@ void BreadthFirstSearch::printInfo()
 		cout << endl;
 	}
 
-	cout << endl << endl;
+	cout << endl;
 }

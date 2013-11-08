@@ -78,6 +78,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="primMinSpanTree.cpp" />
     <ClCompile Include="search.cpp" />
+    <ClCompile Include="topoSortShortPath.cpp" />
     <ClCompile Include="vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +93,7 @@
     <ClInclude Include="kruskalMinSpanTree.h" />
     <ClInclude Include="primMinSpanTree.h" />
     <ClInclude Include="search.h" />
+    <ClInclude Include="topoSortShortPath.h" />
     <ClInclude Include="vertex.h" />
   </ItemGroup>
   <ItemGroup>

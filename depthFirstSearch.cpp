@@ -7,8 +7,8 @@
 
 DepthFirstSearch::DepthFirstSearch(Graph* graph)
 	: GraphSearch(graph),
-	  tock(std::map<Vertex*, int>()),
-	  levels(std::map<Vertex*, int>()),
+	  tock(std::unordered_map<Vertex*, int>()),
+	  levels(std::unordered_map<Vertex*, int>()),
 	  backEdges(std::unordered_set<Edge*>()),
 	  artEdges(std::unordered_set<Edge*>()),
 	  artVerts(std::unordered_set<Vertex*>())
@@ -139,7 +139,7 @@ void DepthFirstSearch::printInfo()
 		cout << endl << "  Topological sort:" << endl << "   ";
 
 		bool first = true;
-		for (auto vert : blacked | boost::adaptors::reversed | boost::adaptors::filtered([](void* x){return x != nullptr; }))
+		for (auto vert : blacked | boost::adaptors::reversed | boost::adaptors::filtered([](void* x){ return x != nullptr; }))
 		{
 			if (first)
 			{

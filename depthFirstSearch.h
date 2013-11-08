@@ -1,6 +1,7 @@
 #ifndef DEPTH_FIRST_SEARCH_H
 #define DEPTH_FIRST_SEARCH_H
 
+#include <unordered_map>
 #include <unordered_set>
 #include "graph.h"
 #include "search.h"
@@ -11,8 +12,8 @@ class DepthFirstSearch : public GraphSearch
 public:
 	int time;
 	bool acyclic;
-	std::map<Vertex*, int> tock;
-	std::map<Vertex*, int> levels;
+	std::unordered_map<Vertex*, int> tock;
+	std::unordered_map<Vertex*, int> levels;
 	std::unordered_set<Edge*> backEdges;
 	std::unordered_set<Edge*> artEdges;
 	std::unordered_set<Vertex*> artVerts;

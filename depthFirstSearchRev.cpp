@@ -86,12 +86,15 @@ void DepthFirstSearchRev::printInfo()
 {
 	using namespace std;
 
+	cout << " Reverse depth-first search:" << endl;
+
 	if (!graph->directed)
 	{
+		cout << "  Graph is not directed." << endl << endl;
 		return;
 	}
 
-	cout << " Reverse depth-first search:" << endl << "  Strongly connected components:  " << endl << "   ";
+	cout << "  Strongly connected components:  " << endl << "   ";
 
 	auto sep = false;
 	for (auto vert : grayed)
