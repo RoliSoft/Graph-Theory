@@ -54,6 +54,9 @@
     <ClCompile Include="kruskalMinSpanTree.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
+    <ClCompile Include="dijkstraShortPath.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files\algo</Filter>
     </ClInclude>
     <ClInclude Include="kruskalMinSpanTree.h">
+      <Filter>Header Files\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="dijkstraShortPath.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>

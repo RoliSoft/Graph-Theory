@@ -5,6 +5,7 @@
 #include "breadthFirstSearch.h"
 #include "primMinSpanTree.h"
 #include "kruskalMinSpanTree.h"
+#include "dijkstraShortPath.h"
 
 int main()
 {
@@ -16,12 +17,14 @@ int main()
 	//BreadthFirstSearch bfs(&graph);
 	PrimMinSpanTree pms(&graph);
 	KruskalMinSpanTree kms(&graph);
+	DijkstraShortPath dsp(&graph);
 
 	//dfs.search();
 	//dfr.search();
 	//bfs.search();
 	pms.search();
 	kms.search();
+	dsp.search();
 
 	system("pause");
 	return EXIT_SUCCESS;

@@ -70,6 +70,7 @@
     <ClCompile Include="breadthFirstSearch.cpp" />
     <ClCompile Include="depthFirstSearch.cpp" />
     <ClCompile Include="depthFirstSearchRev.cpp" />
+    <ClCompile Include="dijkstraShortPath.cpp" />
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="kruskalMinSpanTree.cpp" />
@@ -83,6 +84,7 @@
     <ClInclude Include="breadthFirstSearch.h" />
     <ClInclude Include="depthFirstSearch.h" />
     <ClInclude Include="depthFirstSearchRev.h" />
+    <ClInclude Include="dijkstraShortPath.h" />
     <ClInclude Include="edge.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="kruskalMinSpanTree.h" />
