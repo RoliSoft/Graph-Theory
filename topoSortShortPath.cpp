@@ -6,7 +6,7 @@
 #include "depthFirstSearch.h"
 
 TopoSortShortPath::TopoSortShortPath(Graph* graph, DepthFirstSearch* dfs)
-	: GraphAlgo(graph),
+	: GraphShortPath(graph),
 	  dfs(dfs),
 	  distance(std::unordered_map<Vertex*, int>()),
 	  previous(std::unordered_map<Vertex*, Vertex*>())

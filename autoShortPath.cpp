@@ -5,7 +5,7 @@
 #include "topoSortShortPath.h"
 
 AutoShortPath::AutoShortPath(Graph* graph, DepthFirstSearch* dfs)
-	: GraphAlgo(graph),
+	: GraphShortPath(graph),
 	  dfs(dfs)
 {
 }
@@ -24,33 +24,24 @@ void AutoShortPath::search(Vertex* source)
 
 	if (dfs->acyclic)
 	{
-		_algo = new TopoSortShortPath(graph, dfs);
-		((TopoSortShortPath*)_algo)->search(source);
+		algo = new TopoSortShortPath(graph, dfs);
 	}
 	else if (!dfs->negWeight)
 	{
-		_algo = new DijkstraShortPath(graph);
-		((DijkstraShortPath*)_algo)->search(source);
+		algo = new DijkstraShortPath(graph);
 	}
 	else
 	{
-		_algo = new BellmanFordShortPath(graph);
-		((BellmanFordShortPath*)_algo)->search(source);
+		algo = new BellmanFordShortPath(graph);
 	}
+
+	algo->search(source);
 }
 
 void AutoShortPath::dump()
 {
-	if (dfs->acyclic)
+	if (algo != nullptr)
 	{
-		((TopoSortShortPath*)_algo)->dump();
-	}
-	else if (!dfs->negWeight)
-	{
-		((DijkstraShortPath*)_algo)->dump();
-	}
-	else
-	{
-		((BellmanFordShortPath*)_algo)->dump();
+		algo->dump();
 	}
 }

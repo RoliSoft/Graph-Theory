@@ -3,12 +3,12 @@
 
 #include <unordered_map>
 #include "graph.h"
-#include "algo.h"
+#include "shortPath.h"
 #include "edge.h"
 
 class DepthFirstSearch;
 
-class TopoSortShortPath : public GraphAlgo
+class TopoSortShortPath : public GraphShortPath
 {
 public:
 	std::unordered_map<Vertex*, int> distance;

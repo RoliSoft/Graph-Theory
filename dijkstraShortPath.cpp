@@ -3,7 +3,7 @@
 #include "dijkstraShortPath.h"
 
 DijkstraShortPath::DijkstraShortPath(Graph* graph)
-	: GraphAlgo(graph),
+	: GraphShortPath(graph),
 	  distance(std::unordered_map<Vertex*, int>()),
 	  previous(std::unordered_map<Vertex*, Vertex*>())
 {

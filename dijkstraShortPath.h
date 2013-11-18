@@ -3,10 +3,10 @@
 
 #include <unordered_map>
 #include "graph.h"
-#include "algo.h"
+#include "shortPath.h"
 #include "edge.h"
 
-class DijkstraShortPath : public GraphAlgo
+class DijkstraShortPath : public GraphShortPath
 {
 public:
 	std::unordered_map<Vertex*, int> distance;
