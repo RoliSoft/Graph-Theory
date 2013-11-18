@@ -11,7 +11,7 @@ class DepthFirstSearch : public GraphSearch
 {
 public:
 	int time;
-	bool acyclic;
+	bool acyclic, negWeight;
 	std::unordered_map<Vertex*, int> tock;
 	std::unordered_map<Vertex*, int> levels;
 	std::unordered_set<Edge*> backEdges;

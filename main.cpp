@@ -9,6 +9,7 @@
 #include "bellmanFordShortPath.h"
 #include "topoSortShortPath.h"
 #include "floydShortPath.h"
+#include "autoShortPath.h"
 
 int main()
 {
@@ -20,9 +21,10 @@ int main()
 	BreadthFirstSearch bfs(&graph);
 	PrimMinSpanTree pms(&graph);
 	KruskalMinSpanTree kms(&graph);
-	DijkstraShortPath dsp(&graph);
-	BellmanFordShortPath bfp(&graph);
-	TopoSortShortPath tsp(&graph, &dfs);
+	//DijkstraShortPath dsp(&graph);
+	//BellmanFordShortPath bfp(&graph);
+	//TopoSortShortPath tsp(&graph, &dfs);
+	AutoShortPath asp(&graph, &dfs);
 	FloydShortPath fsp(&graph);
 
 	dfs.search(); dfs.dump();
@@ -30,9 +32,10 @@ int main()
 	bfs.search(); bfs.dump();
 	pms.search(); pms.dump();
 	kms.search(); kms.dump();
-	dsp.search(); dsp.dump();
-	bfp.search(); bfp.dump();
-	tsp.search(); tsp.dump();
+	//dsp.search(); dsp.dump();
+	//bfp.search(); bfp.dump();
+	//tsp.search(); tsp.dump();
+	asp.search(); asp.dump();
 	fsp.search(); fsp.dump();
 
 	system("pause");

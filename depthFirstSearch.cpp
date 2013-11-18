@@ -74,6 +74,11 @@ int DepthFirstSearch::discover(Vertex* vert, int level)
 			{
 				cutchild++;
 			}
+
+			if (!negWeight && graph->weighted && edge->weight < 0)
+			{
+				negWeight = true;
+			}
 			break;
 
 		case color::gray:

@@ -67,6 +67,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="algo.cpp" />
+    <ClCompile Include="autoShortPath.cpp" />
     <ClCompile Include="bellmanFordShortPath.cpp" />
     <ClCompile Include="breadthFirstSearch.cpp" />
     <ClCompile Include="depthFirstSearch.cpp" />
@@ -84,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algo.h" />
+    <ClInclude Include="autoShortPath.h" />
     <ClInclude Include="bellmanFordShortPath.h" />
     <ClInclude Include="breadthFirstSearch.h" />
     <ClInclude Include="depthFirstSearch.h" />

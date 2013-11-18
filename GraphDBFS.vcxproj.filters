@@ -66,6 +66,9 @@
     <ClCompile Include="floydShortPath.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
+    <ClCompile Include="autoShortPath.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files\algo</Filter>
     </ClInclude>
     <ClInclude Include="floydShortPath.h">
+      <Filter>Header Files\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="autoShortPath.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>
