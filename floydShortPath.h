@@ -10,11 +10,16 @@ class FloydShortPath : public GraphAlgo
 {
 public:
 	boost::numeric::ublas::matrix<int> paths;
+	boost::numeric::ublas::matrix<Vertex*> nexts;
 
 	FloydShortPath(Graph* graph);
 
 	void search();
+	void path(Vertex* src, Vertex* dst);
 	void dump();
+
+private:
+	std::string _path(Vertex* src, Vertex* dst, int& sum);
 };
 
 #endif

@@ -36,7 +36,7 @@ int main()
 	//bfp.search(); bfp.dump();
 	//tsp.search(); tsp.dump();
 	asp.search(); asp.dump();
-	fsp.search(); fsp.dump();
+	fsp.search(); fsp.dump(); fsp.path(graph.verts[4], graph.verts[1]);
 
 	system("pause");
 	return EXIT_SUCCESS;
