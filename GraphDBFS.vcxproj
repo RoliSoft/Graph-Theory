@@ -82,7 +82,7 @@
     <ClCompile Include="primMinSpanTree.cpp" />
     <ClCompile Include="search.cpp" />
     <ClCompile Include="shortPath.cpp" />
-    <ClCompile Include="topoSortShortPath.cpp" />
+    <ClCompile Include="viterbiShortPath.cpp" />
     <ClCompile Include="vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +101,7 @@
     <ClInclude Include="primMinSpanTree.h" />
     <ClInclude Include="search.h" />
     <ClInclude Include="shortPath.h" />
-    <ClInclude Include="topoSortShortPath.h" />
+    <ClInclude Include="viterbiShortPath.h" />
     <ClInclude Include="vertex.h" />
   </ItemGroup>
   <ItemGroup>

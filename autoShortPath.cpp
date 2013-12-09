@@ -2,7 +2,7 @@
 #include "depthFirstSearch.h"
 #include "dijkstraShortPath.h"
 #include "bellmanFordShortPath.h"
-#include "topoSortShortPath.h"
+#include "viterbiShortPath.h"
 
 AutoShortPath::AutoShortPath(Graph* graph, DepthFirstSearch* dfs)
 	: GraphShortPath(graph),
@@ -24,7 +24,7 @@ void AutoShortPath::search(Vertex* source)
 
 	if (dfs->acyclic)
 	{
-		algo = new TopoSortShortPath(graph, dfs);
+		algo = new ViterbiShortPath(graph, dfs);
 	}
 	else if (!dfs->negWeight)
 	{

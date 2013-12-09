@@ -7,7 +7,7 @@
 #include "kruskalMinSpanTree.h"
 #include "dijkstraShortPath.h"
 #include "bellmanFordShortPath.h"
-#include "topoSortShortPath.h"
+#include "viterbiShortPath.h"
 #include "floydShortPath.h"
 #include "autoShortPath.h"
 #include "criticalPathMethod.h"
@@ -24,7 +24,7 @@ int main()
 	KruskalMinSpanTree kms(&graph);
 	//DijkstraShortPath dsp(&graph);
 	//BellmanFordShortPath bfp(&graph);
-	//TopoSortShortPath tsp(&graph, &dfs);
+	//ViterbiShortPath vsp(&graph, &dfs);
 	AutoShortPath asp(&graph, &dfs);
 	FloydShortPath fsp(&graph);
 	CriticalPathMethod cpm(&graph);
@@ -36,7 +36,7 @@ int main()
 	kms.search(); kms.dump();
 	//dsp.search(); dsp.dump();
 	//bfp.search(); bfp.dump();
-	//tsp.search(); tsp.dump();
+	//vsp.search(); vsp.dump();
 	asp.search(); asp.dump();
 	fsp.search(); fsp.dump(); fsp.path(graph.verts[4], graph.verts[1]);
 	cpm.search(); cpm.dump();

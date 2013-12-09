@@ -1,5 +1,5 @@
-#ifndef TOPO_SORT_SHORT_PATH_H
-#define TOPO_SORT_SHORT_PATH_H
+#ifndef VITERBI_SHORT_PATH_H
+#define VITERBI_SHORT_PATH_H
 
 #include <unordered_map>
 #include "graph.h"
@@ -8,7 +8,7 @@
 
 class DepthFirstSearch;
 
-class TopoSortShortPath : public GraphShortPath
+class ViterbiShortPath : public GraphShortPath
 {
 public:
 	std::unordered_map<Vertex*, int> distance;
@@ -16,7 +16,7 @@ public:
 	Vertex* source;
 	DepthFirstSearch* dfs;
 
-	TopoSortShortPath(Graph* graph, DepthFirstSearch* dfs = nullptr);
+	ViterbiShortPath(Graph* graph, DepthFirstSearch* dfs = nullptr);
 
 	void search(Vertex* source = nullptr);
 	void dump();

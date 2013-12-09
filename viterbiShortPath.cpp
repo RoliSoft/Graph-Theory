@@ -2,10 +2,10 @@
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/adaptor/reversed.hpp>
 #include <boost/range/adaptor/filtered.hpp>
-#include "topoSortShortPath.h"
+#include "viterbiShortPath.h"
 #include "depthFirstSearch.h"
 
-TopoSortShortPath::TopoSortShortPath(Graph* graph, DepthFirstSearch* dfs)
+ViterbiShortPath::ViterbiShortPath(Graph* graph, DepthFirstSearch* dfs)
 	: GraphShortPath(graph),
 	  dfs(dfs),
 	  distance(std::unordered_map<Vertex*, int>()),
@@ -13,7 +13,7 @@ TopoSortShortPath::TopoSortShortPath(Graph* graph, DepthFirstSearch* dfs)
 {
 }
 
-void TopoSortShortPath::search(Vertex* source)
+void ViterbiShortPath::search(Vertex* source)
 {
 	using namespace std;
 
@@ -58,11 +58,11 @@ void TopoSortShortPath::search(Vertex* source)
 	}
 }
 
-void TopoSortShortPath::dump()
+void ViterbiShortPath::dump()
 {
 	using namespace std;
 
-	cout << " Topological order-based algorithm:" << endl << "  Shortest paths to " << source->id << ":" << endl << endl;
+	cout << " Viterbi's algorithm:" << endl << "  Shortest paths to " << source->id << ":" << endl << endl;
 
 	for (auto vert : graph->verts | boost::adaptors::map_values)
 	{

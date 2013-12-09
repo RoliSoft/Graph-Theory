@@ -60,9 +60,6 @@
     <ClCompile Include="bellmanFordShortPath.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
-    <ClCompile Include="topoSortShortPath.cpp">
-      <Filter>Source Files\algo</Filter>
-    </ClCompile>
     <ClCompile Include="floydShortPath.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
@@ -73,6 +70,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="criticalPathMethod.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
+    <ClCompile Include="viterbiShortPath.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,9 +113,6 @@
     <ClInclude Include="bellmanFordShortPath.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
-    <ClInclude Include="topoSortShortPath.h">
-      <Filter>Header Files\algo</Filter>
-    </ClInclude>
     <ClInclude Include="floydShortPath.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
@@ -126,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="criticalPathMethod.h">
+      <Filter>Header Files\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="viterbiShortPath.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>
