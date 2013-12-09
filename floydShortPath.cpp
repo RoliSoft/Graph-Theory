@@ -38,6 +38,7 @@ void FloydShortPath::path(Vertex* src, Vertex* dst)
 	if (paths.at_element(src->id, dst->id) == INT_MAX)
 	{
 		cout << "   No path available." << endl << endl;
+		return;
 	}
 
 	cout << "   " << src->id;

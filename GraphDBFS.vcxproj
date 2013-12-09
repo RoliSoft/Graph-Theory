@@ -70,6 +70,7 @@
     <ClCompile Include="autoShortPath.cpp" />
     <ClCompile Include="bellmanFordShortPath.cpp" />
     <ClCompile Include="breadthFirstSearch.cpp" />
+    <ClCompile Include="criticalPathMethod.cpp" />
     <ClCompile Include="depthFirstSearch.cpp" />
     <ClCompile Include="depthFirstSearchRev.cpp" />
     <ClCompile Include="dijkstraShortPath.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="autoShortPath.h" />
     <ClInclude Include="bellmanFordShortPath.h" />
     <ClInclude Include="breadthFirstSearch.h" />
+    <ClInclude Include="criticalPathMethod.h" />
     <ClInclude Include="depthFirstSearch.h" />
     <ClInclude Include="depthFirstSearchRev.h" />
     <ClInclude Include="dijkstraShortPath.h" />

@@ -10,6 +10,7 @@
 #include "topoSortShortPath.h"
 #include "floydShortPath.h"
 #include "autoShortPath.h"
+#include "criticalPathMethod.h"
 
 int main()
 {
@@ -26,6 +27,7 @@ int main()
 	//TopoSortShortPath tsp(&graph, &dfs);
 	AutoShortPath asp(&graph, &dfs);
 	FloydShortPath fsp(&graph);
+	CriticalPathMethod cpm(&graph);
 
 	dfs.search(); dfs.dump();
 	dfr.search(); dfr.dump();
@@ -37,6 +39,7 @@ int main()
 	//tsp.search(); tsp.dump();
 	asp.search(); asp.dump();
 	fsp.search(); fsp.dump(); fsp.path(graph.verts[4], graph.verts[1]);
+	cpm.search(); cpm.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;

@@ -72,6 +72,9 @@
     <ClCompile Include="shortPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="criticalPathMethod.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="shortPath.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="criticalPathMethod.h">
+      <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
