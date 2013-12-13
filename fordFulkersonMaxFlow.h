@@ -11,7 +11,7 @@ class FordFulkersonMaxFlow : public GraphAlgo
 {
 public:
 	int maxFlow;
-	boost::numeric::ublas::matrix<int> capacity, flow;
+	boost::numeric::ublas::matrix<int> capacity;
 	std::map<Vertex*, Vertex*> parent;
 
 	FordFulkersonMaxFlow(Graph* graph);
@@ -20,7 +20,7 @@ public:
 	void dump();
 
 private:
-	bool breadthFirstSearch();
+	bool isFlowPossible();
 };
 
 #endif

@@ -5,19 +5,8 @@ FordFulkersonMaxFlow::FordFulkersonMaxFlow(Graph* graph)
 	: GraphAlgo(graph),
 	  maxFlow(0),
 	  capacity(boost::numeric::ublas::matrix<int>(graph->weightrix)),
-	  flow(boost::numeric::ublas::matrix<int>(graph->weightrix.size1(), graph->weightrix.size2(), 0)),
 	  parent(std::map<Vertex*, Vertex*>())
 {
-	for (int i = 0; i < (int)capacity.size1(); i++)
-	{
-		for (int j = 0; j < (int)capacity.size2(); j++)
-		{
-			if (capacity.at_element(i, j) == INT_MAX)
-			{
-				capacity.insert_element(i, j, 0);
-			}
-		}
-	}
 }
 
 void FordFulkersonMaxFlow::search()
@@ -26,7 +15,7 @@ void FordFulkersonMaxFlow::search()
 
 	Vertex *vert, *wert;
 
-	while (breadthFirstSearch())
+	while (isFlowPossible())
 	{
 		int pathFlow = INT_MAX;
 
@@ -54,7 +43,7 @@ void FordFulkersonMaxFlow::dump()
 	cout << " Ford-Fulkerson's algorithm:" << endl << "  Maximum possible flow: " << maxFlow << endl << endl;
 }
 
-bool FordFulkersonMaxFlow::breadthFirstSearch()
+bool FordFulkersonMaxFlow::isFlowPossible()
 {
 	using namespace std;
 
