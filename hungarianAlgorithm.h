@@ -10,11 +10,11 @@
 class HungarianAlgorithm : public GraphAlgo
 {
 public:
-	bool done;
-	int step, num, rowZro, colZro, pathCnt;
+	int num, rowZro, colZro, pathCnt;
 	std::vector<std::vector<int>> cost, mask;
 	std::vector<int> rowCvr, colCvr;
 	std::vector<std::pair<int, int>> path;
+	std::vector<Edge*> best;
 
 	HungarianAlgorithm(Graph* graph);
 
@@ -28,6 +28,7 @@ private:
 	void findUnmarkedZero();
 	void createInitialPath();
 	void increaseLeftovers();
+	void convertFinishedMatrix();
 
 	void findZero(int& row, int& col);
 	bool starInRow(int row);
@@ -38,6 +39,7 @@ private:
 	void clearCovers();
 	void removePrimes();
 	void findSmallest(int& minVal);
+	Edge* findEdge(int row, int col);
 };
 
 #endif

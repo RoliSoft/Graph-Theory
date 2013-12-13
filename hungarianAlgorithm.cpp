@@ -3,8 +3,6 @@
 
 HungarianAlgorithm::HungarianAlgorithm(Graph* graph)
 	: GraphAlgo(graph),
-	  done(false),
-	  step(1),
 	  rowZro(-1),
 	  colZro(-1),
 	  pathCnt(0),
@@ -13,16 +11,17 @@ HungarianAlgorithm::HungarianAlgorithm(Graph* graph)
 	  mask(std::vector<std::vector<int>>(num)),
 	  rowCvr(std::vector<int>(num)),
 	  colCvr(std::vector<int>(num)),
-	  path(std::vector<std::pair<int, int>>((num + 1) * 2))
+	  path(std::vector<std::pair<int, int>>((num + 1) * 2)),
+	  best(std::vector<Edge*>())
 {
 	for (int i = 0; i < num; i++)
 	{
-		cost[i] = std::vector<int>(cost.size());
-		mask[i] = std::vector<int>(cost.size());
+		cost[i] = std::vector<int>(num);
+		mask[i] = std::vector<int>(num);
 
 		for (int j = 0; j < num; j++)
 		{
-			cost[i][j] = graph->weightrix.at_element(i + cost.size() + 1, j + 1);
+			cost[i][j] = graph->weightrix.at_element(i + num + 1, j + 1);
 			mask[i][j] = 0;
 		}
 	}
@@ -35,53 +34,27 @@ HungarianAlgorithm::HungarianAlgorithm(Graph* graph)
 
 void HungarianAlgorithm::search()
 {
-	using namespace std;
-
-	while (!done)
-	{
-		for (int i = 0; i < num; i++)
-		{
-			for (int j = 0; j < num; j++)
-			{
-				cout << " " << cost[i][j];
-			}
-
-			cout << endl;
-		}
-
-		cout << endl;
-
-		for (int i = 0; i < num; i++)
-		{
-			for (int j = 0; j < num; j++)
-			{
-				cout << " " << mask[i][j];
-			}
-
-			cout << endl;
-		}
-
-		cout << endl;
-
-		switch (step)
-		{
-		case 1: findAndSubtractMin(); break;
-		case 2: findAndMarkZero(); break;
-		case 3: inspectMarkedZeroes(); break;
-		case 4: findUnmarkedZero(); break;
-		case 5: createInitialPath(); break;
-		case 6: increaseLeftovers(); break;
-		case 7: done = true; break;
-		}
-	}
+	findAndSubtractMin();
 }
 
 void HungarianAlgorithm::dump()
 {
 	using namespace std;
 
-	cout << " Hungarian algorithm:" << endl;
-	cout << endl << endl;
+	cout << " Hungarian algorithm:" << endl << "  Best task allocation:" << endl << endl;
+
+	for (auto edge : best)
+	{
+		if (edge == nullptr)
+		{
+			cout << "   <edge not found>" << endl;
+			continue;
+		}
+
+		cout << "   " << edge->src->id << " <-> " << edge->dst->id << endl;
+	}
+
+	cout << endl;
 }
 
 void HungarianAlgorithm::findAndSubtractMin()
@@ -106,7 +79,7 @@ void HungarianAlgorithm::findAndSubtractMin()
 		}
 	}
 
-	step = 2;
+	findAndMarkZero();
 }
 
 void HungarianAlgorithm::findAndMarkZero()
@@ -130,7 +103,7 @@ void HungarianAlgorithm::findAndMarkZero()
 		colCvr[i] = 0;
 	}
 
-	step = 3;
+	inspectMarkedZeroes();
 }
 
 void HungarianAlgorithm::inspectMarkedZeroes()
@@ -158,11 +131,11 @@ void HungarianAlgorithm::inspectMarkedZeroes()
 
 	if (colCnt >= num)
 	{
-		step = 7;
+		convertFinishedMatrix();
 	}
 	else
 	{
-		step = 4;
+		findUnmarkedZero();
 	}
 }
 
@@ -178,7 +151,8 @@ void HungarianAlgorithm::findUnmarkedZero()
 		if (r == -1)
 		{
 			done = true;
-			step = 6;
+
+			increaseLeftovers();
 		}
 		else
 		{
@@ -187,15 +161,17 @@ void HungarianAlgorithm::findUnmarkedZero()
 			if (starInRow(r))
 			{
 				findStarInRow(r, c);
+
 				rowCvr[r] = 1;
 				colCvr[c] = 0;
 			}
 			else
 			{
 				done = true;
-				step = 5;
 				rowZro = r;
 				colZro = c;
+
+				createInitialPath();
 			}
 		}
 	}
@@ -239,7 +215,7 @@ void HungarianAlgorithm::createInitialPath()
 	clearCovers();
 	removePrimes();
 
-	step = 3;
+	inspectMarkedZeroes();
 }
 
 void HungarianAlgorithm::increaseLeftovers()
@@ -263,7 +239,40 @@ void HungarianAlgorithm::increaseLeftovers()
 		}
 	}
 
-	step = 4;
+	findUnmarkedZero();
+}
+
+void HungarianAlgorithm::convertFinishedMatrix()
+{
+	using namespace std;
+
+	for (int r = 0; r < num; r++)
+	{
+		for (int c = 0; c < num; c++)
+		{
+			if (mask[r][c] == 1)
+			{
+				best.push_back(findEdge(r + 1, c + num + 1));
+			}
+		}
+	}
+}
+
+Edge* HungarianAlgorithm::findEdge(int row, int col)
+{
+	for (auto vert : graph->verts | boost::adaptors::map_values)
+	{
+		for (auto edge : vert->deg)
+		{
+			if ((edge->src->id == row || edge->dst->id == row)
+			 && (edge->src->id == col || edge->dst->id == col))
+			{
+				return edge;
+			}
+		}
+	}
+
+	return nullptr;
 }
 
 void HungarianAlgorithm::findZero(int& row, int& col)
