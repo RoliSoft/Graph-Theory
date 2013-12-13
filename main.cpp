@@ -11,6 +11,7 @@
 #include "floydShortPath.h"
 #include "autoShortPath.h"
 #include "criticalPathMethod.h"
+#include "fordFulkersonMaxFlow.h"
 #include "hungarianAlgorithm.h"
 
 int main()
@@ -29,6 +30,7 @@ int main()
 	AutoShortPath asp(&graph, &dfs);
 	FloydShortPath fsp(&graph);
 	CriticalPathMethod cpm(&graph);
+	FordFulkersonMaxFlow ffm(&graph);
 	HungarianAlgorithm hun(&graph);
 
 	//dfs.search(); dfs.dump();
@@ -42,7 +44,8 @@ int main()
 	//asp.search(); asp.dump();
 	//fsp.search(); fsp.dump(); fsp.path(4, 1);
 	//cpm.search(); cpm.dump();
-	hun.search(); hun.dump();
+	ffm.search(); ffm.dump();
+	//hun.search(); hun.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;

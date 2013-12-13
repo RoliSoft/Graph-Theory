@@ -76,6 +76,7 @@
     <ClCompile Include="dijkstraShortPath.cpp" />
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="floydShortPath.cpp" />
+    <ClCompile Include="fordFulkersonMaxFlow.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="hungarianAlgorithm.cpp" />
     <ClCompile Include="kruskalMinSpanTree.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="dijkstraShortPath.h" />
     <ClInclude Include="edge.h" />
     <ClInclude Include="floydShortPath.h" />
+    <ClInclude Include="fordFulkersonMaxFlow.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="hungarianAlgorithm.h" />
     <ClInclude Include="kruskalMinSpanTree.h" />

@@ -78,6 +78,9 @@
     <ClCompile Include="hungarianAlgorithm.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
+    <ClCompile Include="fordFulkersonMaxFlow.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files\algo</Filter>
     </ClInclude>
     <ClInclude Include="hungarianAlgorithm.h">
+      <Filter>Header Files\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="fordFulkersonMaxFlow.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>
