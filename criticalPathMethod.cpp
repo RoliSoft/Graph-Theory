@@ -50,7 +50,7 @@ int CriticalPathMethod::getMaxForward(Vertex* vert)
 {
 	int max = 0;
 	
-	if (vert != (*graph->verts.end()).second)
+	if (vert != (*graph->verts.rbegin()).second)
 	{
 		for (auto edge : vert->out)
 		{

@@ -2,7 +2,6 @@
 #define CRITICAL_PATH_METHOD_H
 
 #include <vector>
-#include <boost/numeric/ublas/matrix.hpp>
 #include "graph.h"
 #include "algo.h"
 #include "edge.h"
