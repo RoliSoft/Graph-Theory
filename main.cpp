@@ -11,6 +11,7 @@
 #include "floydShortPath.h"
 #include "autoShortPath.h"
 #include "criticalPathMethod.h"
+#include "hungarianAlgorithm.h"
 
 int main()
 {
@@ -22,24 +23,26 @@ int main()
 	BreadthFirstSearch bfs(&graph);
 	PrimMinSpanTree pms(&graph);
 	KruskalMinSpanTree kms(&graph);
-	//DijkstraShortPath dsp(&graph);
-	//BellmanFordShortPath bfp(&graph);
-	//ViterbiShortPath vsp(&graph, &dfs);
+	DijkstraShortPath dsp(&graph);
+	BellmanFordShortPath bfp(&graph);
+	ViterbiShortPath vsp(&graph, &dfs);
 	AutoShortPath asp(&graph, &dfs);
 	FloydShortPath fsp(&graph);
 	CriticalPathMethod cpm(&graph);
+	HungarianAlgorithm hun(&graph);
 
-	dfs.search(); dfs.dump();
-	dfr.search(); dfr.dump();
-	bfs.search(); bfs.dump();
-	pms.search(); pms.dump();
-	kms.search(); kms.dump();
+	//dfs.search(); dfs.dump();
+	//dfr.search(); dfr.dump();
+	//bfs.search(); bfs.dump();
+	//pms.search(); pms.dump();
+	//kms.search(); kms.dump();
 	//dsp.search(); dsp.dump();
 	//bfp.search(); bfp.dump();
 	//vsp.search(); vsp.dump();
-	asp.search(); asp.dump();
-	fsp.search(); fsp.dump(); fsp.path(graph.verts[4], graph.verts[1]);
-	cpm.search(); cpm.dump();
+	//asp.search(); asp.dump();
+	//fsp.search(); fsp.dump(); fsp.path(4, 1);
+	//cpm.search(); cpm.dump();
+	hun.search(); hun.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;

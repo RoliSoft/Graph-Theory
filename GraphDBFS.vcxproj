@@ -77,6 +77,7 @@
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="floydShortPath.cpp" />
     <ClCompile Include="graph.cpp" />
+    <ClCompile Include="hungarianAlgorithm.cpp" />
     <ClCompile Include="kruskalMinSpanTree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="primMinSpanTree.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="edge.h" />
     <ClInclude Include="floydShortPath.h" />
     <ClInclude Include="graph.h" />
+    <ClInclude Include="hungarianAlgorithm.h" />
     <ClInclude Include="kruskalMinSpanTree.h" />
     <ClInclude Include="primMinSpanTree.h" />
     <ClInclude Include="search.h" />

@@ -29,6 +29,11 @@ void FloydShortPath::search()
 	}
 }
 
+void FloydShortPath::path(int src, int dst)
+{
+	path(graph->verts[src], graph->verts[dst]);
+}
+
 void FloydShortPath::path(Vertex* src, Vertex* dst)
 {
 	using namespace std;

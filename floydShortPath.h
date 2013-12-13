@@ -15,6 +15,7 @@ public:
 	FloydShortPath(Graph* graph);
 
 	void search();
+	void path(int src, int dst);
 	void path(Vertex* src, Vertex* dst);
 	void dump();
 
