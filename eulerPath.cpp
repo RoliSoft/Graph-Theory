@@ -42,6 +42,7 @@ void EulerPath::dump()
 	{
 		bool swap = last == edge->dst;
 		last = edge->dst;
+
 		cout << "  " << (swap ? edge->dst : edge->src)->id << " <-> " << (swap ? edge->src : edge->dst)->id << endl;
 	}
 

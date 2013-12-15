@@ -16,6 +16,7 @@
 #include "hamiltonPath.h"
 #include "hamiltonCircuit.h"
 #include "eulerPath.h"
+#include "eulerCircuit.h"
 
 int main()
 {
@@ -36,6 +37,7 @@ int main()
 	HamiltonPath hpt(&graph);
 	HamiltonCircuit hpc(&graph);
 	EulerPath ept(&graph);
+	EulerCircuit epc(&graph);
 
 	//dfs.search(); dfs.dump();
 	//dfr.search(); dfr.dump();
@@ -53,6 +55,7 @@ int main()
 	hpt.search(); hpt.dump();
 	hpc.search(); hpc.dump();
 	ept.search(); ept.dump();
+	epc.search(); epc.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;
