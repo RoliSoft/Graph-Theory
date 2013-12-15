@@ -60,7 +60,7 @@ std::string HamiltonPath::name()
 	return "path";
 }
 
-boost::tribool HamiltonPath::check(Vertex* vert, std::vector<Vertex*> visited)
+boost::tribool HamiltonPath::check(Vertex* vert, std::vector<Vertex*>& visited)
 {
 	if (visited.size() == graph->verts.size())
 	{

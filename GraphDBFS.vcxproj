@@ -75,6 +75,7 @@
     <ClCompile Include="depthFirstSearchRev.cpp" />
     <ClCompile Include="dijkstraShortPath.cpp" />
     <ClCompile Include="edge.cpp" />
+    <ClCompile Include="eulerPath.cpp" />
     <ClCompile Include="floydShortPath.cpp" />
     <ClCompile Include="fordFulkersonMaxFlow.cpp" />
     <ClCompile Include="graph.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="depthFirstSearchRev.h" />
     <ClInclude Include="dijkstraShortPath.h" />
     <ClInclude Include="edge.h" />
+    <ClInclude Include="eulerPath.h" />
     <ClInclude Include="floydShortPath.h" />
     <ClInclude Include="fordFulkersonMaxFlow.h" />
     <ClInclude Include="graph.h" />

@@ -10,7 +10,7 @@ std::string HamiltonCircuit::name()
 	return "circuit";
 }
 
-boost::tribool HamiltonCircuit::check(Vertex* vert, std::vector<Vertex*> visited)
+boost::tribool HamiltonCircuit::check(Vertex* vert, std::vector<Vertex*>& visited)
 {
 	if (visited.size() == graph->verts.size())
 	{
@@ -18,6 +18,7 @@ boost::tribool HamiltonCircuit::check(Vertex* vert, std::vector<Vertex*> visited
 		{
 			if ((edge->dst == vert ? edge->src : edge->dst) == visited[0])
 			{
+				visited.push_back(visited[0]);
 				return true;
 			}
 		}

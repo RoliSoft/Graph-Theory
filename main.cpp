@@ -15,11 +15,10 @@
 #include "hungarianAlgorithm.h"
 #include "hamiltonPath.h"
 #include "hamiltonCircuit.h"
+#include "eulerPath.h"
 
 int main()
 {
-	using namespace std;
-
 	Graph graph("input.txt");
 	DepthFirstSearch dfs(&graph);
 	DepthFirstSearchRev dfr(&graph, &dfs);
@@ -36,6 +35,7 @@ int main()
 	HungarianAlgorithm hun(&graph);
 	HamiltonPath hpt(&graph);
 	HamiltonCircuit hpc(&graph);
+	EulerPath ept(&graph);
 
 	//dfs.search(); dfs.dump();
 	//dfr.search(); dfr.dump();
@@ -52,6 +52,7 @@ int main()
 	//hun.search(); hun.dump();
 	hpt.search(); hpt.dump();
 	hpc.search(); hpc.dump();
+	ept.search(); ept.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;

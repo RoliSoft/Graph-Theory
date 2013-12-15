@@ -87,6 +87,9 @@
     <ClCompile Include="hamiltonCircuit.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
+    <ClCompile Include="eulerPath.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -150,6 +153,9 @@
       <Filter>Header Files\algo</Filter>
     </ClInclude>
     <ClInclude Include="hamiltonCircuit.h">
+      <Filter>Header Files\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="eulerPath.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,7 @@ public:
 
 protected:
 	virtual std::string name();
-	virtual boost::tribool check(Vertex* vert, std::vector<Vertex*> visited);
+	virtual boost::tribool check(Vertex* vert, std::vector<Vertex*>& visited);
 };
 
 #endif
