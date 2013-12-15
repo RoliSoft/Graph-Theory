@@ -14,6 +14,10 @@ HungarianAlgorithm::HungarianAlgorithm(Graph* graph)
 	  path(std::vector<std::pair<int, int>>((num + 1) * 2)),
 	  best(std::vector<Edge*>())
 {
+}
+
+void HungarianAlgorithm::search()
+{
 	for (int i = 0; i < num; i++)
 	{
 		cost[i] = std::vector<int>(num);
@@ -30,10 +34,7 @@ HungarianAlgorithm::HungarianAlgorithm(Graph* graph)
 	{
 		path[i] = std::make_pair(0, 0);
 	}
-}
 
-void HungarianAlgorithm::search()
-{
 	findAndSubtractMin();
 }
 

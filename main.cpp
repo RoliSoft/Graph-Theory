@@ -13,6 +13,7 @@
 #include "criticalPathMethod.h"
 #include "fordFulkersonMaxFlow.h"
 #include "hungarianAlgorithm.h"
+#include "hamiltonPath.h"
 
 int main()
 {
@@ -32,6 +33,7 @@ int main()
 	CriticalPathMethod cpm(&graph);
 	FordFulkersonMaxFlow ffm(&graph);
 	HungarianAlgorithm hun(&graph);
+	HamiltonPath hpt(&graph);
 
 	//dfs.search(); dfs.dump();
 	//dfr.search(); dfr.dump();
@@ -44,8 +46,9 @@ int main()
 	//asp.search(); asp.dump();
 	//fsp.search(); fsp.dump(); fsp.path(4, 1);
 	//cpm.search(); cpm.dump();
-	ffm.search(); ffm.dump();
+	//ffm.search(); ffm.dump();
 	//hun.search(); hun.dump();
+	hpt.search(); hpt.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;

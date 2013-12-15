@@ -81,6 +81,9 @@
     <ClCompile Include="fordFulkersonMaxFlow.cpp">
       <Filter>Source Files\algo</Filter>
     </ClCompile>
+    <ClCompile Include="hamiltonPath.cpp">
+      <Filter>Source Files\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="edge.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files\algo</Filter>
     </ClInclude>
     <ClInclude Include="fordFulkersonMaxFlow.h">
+      <Filter>Header Files\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="hamiltonPath.h">
       <Filter>Header Files\algo</Filter>
     </ClInclude>
   </ItemGroup>
