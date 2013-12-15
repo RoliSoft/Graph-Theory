@@ -19,10 +19,10 @@ public:
 
 protected:
 	virtual std::string name();
-	virtual boost::tribool check(Edge* edge, std::vector<Edge*>& visited);
+	virtual boost::tribool check(Vertex* vert, std::vector<Edge*>& visited);
 
 private:
-	bool recurse(Edge* edge, std::vector<Edge*> visited);
+	bool recurse(Vertex* vert, std::vector<Edge*> visited);
 };
 
 #endif

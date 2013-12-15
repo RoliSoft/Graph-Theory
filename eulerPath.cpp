@@ -13,17 +13,14 @@ void EulerPath::search()
 
 	for (auto vert : graph->verts | boost::adaptors::map_values)
 	{
-		for (auto edge : vert->deg)
+		//visited.push_back(vert);
+
+		if (recurse(vert, visited))
 		{
-			visited.push_back(edge);
-
-			if (recurse(edge, visited))
-			{
-				break;
-			}
-
-			visited.clear();
+			break;
 		}
+
+		visited.clear();
 	}
 }
 
@@ -39,9 +36,13 @@ void EulerPath::dump()
 		return;
 	}
 
+	Vertex* last = nullptr;
+
 	for (auto edge : path)
 	{
-		cout << "  " << edge->src->id << " <-> " << edge->dst->id << endl;
+		bool swap = last == edge->dst;
+		last = edge->dst;
+		cout << "  " << (swap ? edge->dst : edge->src)->id << " <-> " << (swap ? edge->src : edge->dst)->id << endl;
 	}
 
 	cout << endl;
@@ -52,9 +53,9 @@ std::string EulerPath::name()
 	return "path";
 }
 
-boost::tribool EulerPath::check(Edge* edge, std::vector<Edge*>& visited)
+boost::tribool EulerPath::check(Vertex* vert, std::vector<Edge*>& visited)
 {
-	if (visited.size() == graph->edges.size() - 1)
+	if (visited.size() == graph->edges.size())
 	{
 		return true;
 	}
@@ -62,10 +63,10 @@ boost::tribool EulerPath::check(Edge* edge, std::vector<Edge*>& visited)
 	return boost::indeterminate;
 }
 
-bool EulerPath::recurse(Edge* edge, std::vector<Edge*> visited)
+bool EulerPath::recurse(Vertex* vert, std::vector<Edge*> visited)
 {
 	boost::tribool cres;
-	if (!boost::indeterminate(cres = check(edge, visited)))
+	if (!boost::indeterminate(cres = check(vert, visited)))
 	{
 		if (cres)
 		{
@@ -75,35 +76,20 @@ bool EulerPath::recurse(Edge* edge, std::vector<Edge*> visited)
 		return cres;
 	}
 
-	/*for (auto edge2 : edge->src->deg)
+	for (auto edge : vert->deg)
 	{
 		std::vector<Edge*> visitcpy(visited);
 
-		if (std::find(visitcpy.begin(), visitcpy.end(), edge2) != visitcpy.end())
+		auto wert = edge->dst == vert ? edge->src : edge->dst;
+
+		if (std::find(visitcpy.begin(), visitcpy.end(), edge) != visitcpy.end())
 		{
 			continue;
 		}
 
-		visitcpy.push_back(edge2);
+		visitcpy.push_back(edge);
 
-		if (recurse(edge2, visitcpy))
-		{
-			return true;
-		}
-	}*/
-
-	for (auto edge2 : edge->dst->deg)
-	{
-		std::vector<Edge*> visitcpy(visited);
-
-		if (std::find(visitcpy.begin(), visitcpy.end(), edge2) != visitcpy.end())
-		{
-			continue;
-		}
-
-		visitcpy.push_back(edge2);
-
-		if (recurse(edge2, visitcpy))
+		if (recurse(wert, visitcpy))
 		{
 			return true;
 		}
