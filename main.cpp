@@ -14,6 +14,7 @@
 #include "fordFulkersonMaxFlow.h"
 #include "hungarianAlgorithm.h"
 #include "hamiltonPath.h"
+#include "hamiltonCircuit.h"
 
 int main()
 {
@@ -34,6 +35,7 @@ int main()
 	FordFulkersonMaxFlow ffm(&graph);
 	HungarianAlgorithm hun(&graph);
 	HamiltonPath hpt(&graph);
+	HamiltonCircuit hpc(&graph);
 
 	//dfs.search(); dfs.dump();
 	//dfr.search(); dfr.dump();
@@ -49,6 +51,7 @@ int main()
 	//ffm.search(); ffm.dump();
 	//hun.search(); hun.dump();
 	hpt.search(); hpt.dump();
+	hpc.search(); hpc.dump();
 
 	system("pause");
 	return EXIT_SUCCESS;

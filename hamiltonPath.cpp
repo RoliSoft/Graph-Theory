@@ -28,11 +28,11 @@ void HamiltonPath::dump()
 {
 	using namespace std;
 
-	cout << " Hamilton's path:" << endl << "  ";
+	cout << " Hamilton's " << name() << ":" << endl << "  ";
 
 	if (path.size() == 0)
 	{
-		cout << "No Hamiltonian path available for the graph." << endl << endl;
+		cout << "No Hamiltonian " << name() << " available for the graph." << endl << endl;
 		return;
 	}
 
@@ -55,23 +55,32 @@ void HamiltonPath::dump()
 	cout << endl << endl;
 }
 
-bool HamiltonPath::recurse(Vertex* vert, std::vector<Vertex*> visited)
+std::string HamiltonPath::name()
+{
+	return "path";
+}
+
+boost::tribool HamiltonPath::check(Vertex* vert, std::vector<Vertex*> visited)
 {
 	if (visited.size() == graph->verts.size())
 	{
-		path = visited;
 		return true;
+	}
 
-		/*for (auto edge : vert->deg)
+	return boost::indeterminate;
+}
+
+bool HamiltonPath::recurse(Vertex* vert, std::vector<Vertex*> visited)
+{
+	boost::tribool cres;
+	if (!boost::indeterminate(cres = check(vert, visited)))
+	{
+		if (cres)
 		{
-			if ((edge->dst == vert ? edge->src : edge->dst) == visited[0])
-			{
-				path = visited;
-				return true;
-			}
+			path = visited;
 		}
 
-		return false;*/
+		return cres;
 	}
 
 	for (auto edge : vert->deg)
